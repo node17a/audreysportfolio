@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --parchment: #FAF7F2;
+    --blush: #ECC8C5;
+    --sage: #A8BBA8;
+    --ink: #2A2420;
+    --ink-muted: rgba(42,36,32,0.45);
+  }
+
+  body {
+    background: #181614;
+    padding: 36px 28px 60px;
+    min-height: 100vh;
+    color: #fff;
+  }
+
+  .serif {
+    font-family: 'Cormorant Garamond', Palatino, 'Book Antiqua', serif;
+  }
+  .sans {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  }
+
+  .q-header { margin-bottom: 28px; }
+  .q-header h1 {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 15px; font-weight: 400;
+    color: #bbb; margin-bottom: 6px;
+  }
+  .q-header p {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 12px; color: #555; line-height: 1.6;
+  }
+
+  .panel-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+  .panel-full { margin-bottom: 18px; }
+
+  .panel {
+    background: var(--parchment);
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .panel:hover { transform: translateY(-2px); }
+  .panel.selected { border-color: var(--blush); }
+
+  /* nav */
+  .site-nav {
+    display: flex;
+    align-items: center;
+    padding: 14px 28px;
+    border-bottom: 1px solid rgba(42,36,32,0.07);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', Palatino, serif;
+    font-size: 14px; font-weight: 400;
+    letter-spacing: 0.05em; color: var(--ink); flex: 1;
+  }
+  .nav-links {
+    display: flex; gap: 22px;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 9px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-muted);
+  }
+
+  /* ── A: Centered ── */
+  .a-body {
+    padding: 52px 36px 44px;
+    text-align: center;
+    position: relative;
+    min-height: 260px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+  }
+  .a-tulip { position: absolute; top: 20px; left: 50%; transform: translateX(-50%); opacity: 0.07; pointer-events: none; }
+  .a-name {
+    font-family: 'Cormorant Garamond', Palatino, serif;
+    font-size: 68px; font-weight: 300;
+    letter-spacing: -0.02em; line-height: 0.92;
+    color: var(--ink); position: relative; z-index: 1;
+  }
+  .a-tag {
+    font-family: 'Cormorant Garamond', Palatino, serif;
+    font-size: 15px; font-style: italic; font-weight: 300;
+    line-height: 1.9; color: var(--ink-muted);
+    margin-top: 18px; position: relative; z-index: 1;
+  }
+
+  /* ── B: Left + tulip right ── */
+  .b-body {
+    padding: 44px 36px 40px;
+    position: relative;
+    min-height: 260px;
+  }
+  .b-tulip { position: absolute; right: 20px; top: 16px; opacity: 0.13; pointer-events: none; }
+  .b-name {
+    font-family: 'Cormorant Garamond', Palatino, serif;
+    font-size: 74px; font-weight: 300;
+    letter-spacing: -0.025em; line-height: 0.88;
+    color: var(--ink); max-width: 65%;
+  }
+  .b-tag {
+    font-family: 'Cormorant Garamond', Palatino, serif;
+    font-size: 14px; font-style: italic; font-weight: 300;
+    line-height: 2; color: var(--ink-muted);
+    margin-top: 18px; max-width: 300px;
+  }
+
+  /* ── C: Split stacked name ── */
+  .c-body {
+    padding: 36px 36px 40px;
+    position: relative;
+    min-height: 260px;
+  }
+  .c-eyebrow {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--sage);
+    margin-bottom: 14px;
+  }
+  .c-name1 {
+    font-family: 'Cormorant Garamond', Palatino, serif;
+    font-size: 82px; font-weight: 300;
+    letter-spacing: -0.03em; line-height: 0.85;
+    color: var(--ink);
+  }
+  .c-name2 {
+    font-family: 'Cormorant Garamond', Palatino, serif;
+    font-size: 82px; font-weight: 300;
+    letter-spacing: -0.03em; line-height: 0.85;
+    color: var(--blush);
+    margin-bottom: 20px;
+  }
+  .c-tag {
+    font-family: 'Cormorant Garamond', Palatino, serif;
+    font-size: 14px; font-style: italic; font-weight: 300;
+    line-height: 2; color: var(--ink-muted);
+    max-width: 300px;
+  }
+  .c-tulip { position: absolute; right: 22px; bottom: 14px; opacity: 0.09; pointer-events: none; }
+
+  /* footer */
+  .panel-footer {
+    padding: 12px 18px;
+    background: rgba(42,36,32,0.035);
+    border-top: 1px solid rgba(42,36,32,0.06);
+  }
+  .panel-footer strong {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 11px; font-weight: 500;
+    color: var(--ink); display: block; margin-bottom: 2px;
+  }
+  .panel-footer p {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 11px; color: #888; line-height: 1.5;
+  }
+  .sel-btn {
+    margin-top: 9px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-size: 9px; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid rgba(42,36,32,0.2);
+    background: transparent; color: var(--ink);
+    cursor: pointer; transition: background 0.15s;
+  }
+  .panel.selected .sel-btn { background: var(--blush); border-color: var(--blush); }
+</style>
+</head>
+<body>
+
+<!-- shared tulip symbol -->
+<svg style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <symbol id="t" viewBox="0 0 80 122">
+      <path d="M40 120C40 120 40 64 40 52" stroke="#2A2420" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M40 76C33 71 24 64 22 54C20 44 28 37 35 43C37 45 38 48 40 52C42 48 43 45 45 43C52 37 60 44 58 54C56 64 47 71 40 76Z" fill="#ECC8C5" stroke="#2A2420" stroke-width="0.9"/>
+      <path d="M32 54C27 46 29 38 32 43" stroke="#2A2420" stroke-width="0.5" opacity="0.35"/>
+      <path d="M48 54C53 46 51 38 48 43" stroke="#2A2420" stroke-width="0.5" opacity="0.35"/>
+      <path d="M40 90C31 87 27 78 30 73" stroke="#A8BBA8" stroke-width="1" fill="none"/>
+      <path d="M40 100C49 97 53 88 50 83" stroke="#A8BBA8" stroke-width="1" fill="none"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="q-header">
+  <h1>Hero layout — which feels right?</h1>
+  <p>Cormorant Garamond loads from Google Fonts. If it looks like Palatino, the font is still downloading — give it a second.</p>
+</div>
+
+<div class="panel-grid">
+  <!-- A -->
+  <div class="panel" id="pa" onclick="sel('a')">
+    <div class="site-nav">
+      <span class="nav-logo">Audrey Leo</span>
+      <div class="nav-links"><span>Works</span><span>Playground</span><span>About</span></div>
+    </div>
+    <div class="a-body">
+      <svg class="a-tulip" width="180" height="220"><use href="#t"/></svg>
+      <div class="a-name">Audrey Leo</div>
+      <div class="a-tag">a storyteller, a tulip tender, a designer.<br>welcome to my garden.</div>
+    </div>
+    <div class="panel-footer">
+      <strong>A — Centered, symmetrical</strong>
+      <p>Tulip fades behind name. Editorial, like a title page.</p>
+      <button class="sel-btn">Select A</button>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="panel" id="pb" onclick="sel('b')">
+    <div class="site-nav">
+      <span class="nav-logo">Audrey Leo</span>
+      <div class="nav-links"><span>Works</span><span>Playground</span><span>About</span></div>
+    </div>
+    <div class="b-body">
+      <svg class="b-tulip" width="120" height="148"><use href="#t"/></svg>
+      <div class="b-name">Audrey Leo</div>
+      <div class="b-tag">a storyteller, a tulip tender, a designer.<br>welcome to my garden.</div>
+    </div>
+    <div class="panel-footer">
+      <strong>B — Left text, tulip right</strong>
+      <p>Closest to xiaoyanghu.com. Botanical tension.</p>
+      <button class="sel-btn">Select B</button>
+    </div>
+  </div>
+</div>
+
+<!-- C -->
+<div class="panel-full">
+  <div class="panel" id="pc" onclick="sel('c')">
+    <div class="site-nav">
+      <span class="nav-logo">Audrey Leo</span>
+      <div class="nav-links"><span>Works</span><span>Playground</span><span>About</span></div>
+    </div>
+    <div class="c-body">
+      <svg class="c-tulip" width="88" height="108"><use href="#t"/></svg>
+      <div class="c-eyebrow">Portfolio · 2026</div>
+      <div class="c-name1">Audrey</div>
+      <div class="c-name2">Leo</div>
+      <div class="c-tag">a storyteller, a tulip tender, a designer.<br>welcome to my garden.</div>
+    </div>
+    <div class="panel-footer">
+      <strong>C — Split stacked name (most like xiaoyanghu's headline energy)</strong>
+      <p>Name broken over two lines, "Leo" in tulip blush. Most expressive, most personal. XY-style spatial drama.</p>
+      <button class="sel-btn">Select C</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function sel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('selected'));
+  document.getElementById('p' + id).classList.add('selected');
+  try {
+    fetch('/event', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({type:'click', choice: id, text:'Option '+id.toUpperCase(), timestamp: Math.floor(Date.now()/1000)})
+    }).catch(()=>{});
+  } catch(e){}
+}
+</script>
+</body>
+</html>

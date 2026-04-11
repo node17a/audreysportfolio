@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #FAF7F2;
+    --blush: #ECC8C5;
+    --sage: #A8BBA8;
+    --lavender: #CBBFE0;
+    --gold: #E8D4A0;
+    --ink: #2A2420;
+  }
+  body {
+    background: var(--parchment);
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 56px;
+    border-bottom: 1px solid rgba(42,36,32,0.07);
+  }
+  .nav-logo { font-size: 13px; font-weight: 400; letter-spacing: 0.05em; color: var(--ink); }
+  .nav-links {
+    display: flex; gap: 28px;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(42,36,32,0.4);
+  }
+  .nav-links a { text-decoration: none; color: inherit; transition: color .2s, border-color .2s; padding-bottom: 2px; border-bottom: 1px solid transparent; }
+  .nav-links a:hover { color: var(--ink); border-bottom-color: var(--blush); }
+
+  /* ── HERO ── */
+  .hero {
+    display: flex; align-items: center;
+    padding: 52px 56px 56px;
+    min-height: calc(100vh - 65px);
+    gap: 48px;
+  }
+
+  /* LEFT */
+  .hero-left { flex: 0 0 360px; }
+  .hero-name {
+    font-size: 54px; font-weight: 300;
+    letter-spacing: -0.03em; line-height: 1.0;
+    color: var(--ink); margin-bottom: 20px;
+  }
+  .hero-desc {
+    font-size: 15px; font-weight: 300; line-height: 1.8;
+    color: rgba(42,36,32,0.6); max-width: 310px; margin-bottom: 28px;
+  }
+  .hero-desc strong { font-weight: 500; color: var(--ink); }
+  .badges { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; border-radius: 20px;
+    font-size: 10px; font-weight: 400; letter-spacing: 0.02em;
+    border: 1px solid rgba(42,36,32,0.12);
+    color: var(--ink); background: rgba(255,255,255,0.5);
+    transition: background .2s, border-color .2s;
+    cursor: default;
+  }
+  .badge:hover { background: white; border-color: rgba(42,36,32,0.2); }
+  .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+
+  /* RIGHT — photo frame + floating icons */
+  .hero-right {
+    flex: 1; display: flex;
+    align-items: center; justify-content: center;
+    position: relative; min-height: 480px;
+  }
+
+  /* the photo frame */
+  .photo-frame {
+    width: 300px; height: 360px;
+    border-radius: 20px;
+    background: linear-gradient(145deg, #ECC8C5 0%, #CBBFE0 50%, #E8D4A0 100%);
+    position: relative; z-index: 2;
+    display: flex; align-items: flex-end; justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(42,36,32,0.12), 0 4px 16px rgba(42,36,32,0.07);
+  }
+  /* placeholder silhouette */
+  .photo-frame::before {
+    content: '';
+    position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+    width: 160px; height: 260px;
+    background: rgba(255,255,255,0.18);
+    border-radius: 80px 80px 0 0;
+  }
+  .photo-label {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.6); font-weight: 400; text-align: center;
+    line-height: 1.6;
+  }
+
+  /* floating icon chips */
+  .icon-chip {
+    position: absolute; z-index: 3;
+    background: white;
+    border-radius: 16px;
+    padding: 8px 14px;
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 400; color: var(--ink);
+    box-shadow: 0 6px 24px rgba(42,36,32,0.10), 0 1px 4px rgba(42,36,32,0.06);
+    cursor: default;
+    transition: transform 0.35s cubic-bezier(.34,1.56,.64,1), box-shadow 0.3s;
+    animation: float-in 0.6s ease both;
+  }
+  .icon-chip:hover {
+    transform: scale(1.08) translateY(-3px) !important;
+    box-shadow: 0 12px 32px rgba(42,36,32,0.14);
+  }
+  .icon-chip .emoji { font-size: 18px; line-height: 1; }
+
+  /* positions — scattered like XY's stickers */
+  .chip-tennis  { top: 28px;  left: -20px;  animation-delay: 0.1s; transform: rotate(-6deg); }
+  .chip-journal { top: 60px;  right: -30px; animation-delay: 0.2s; transform: rotate(5deg); }
+  .chip-poodle  { bottom: 80px; left: -35px;  animation-delay: 0.3s; transform: rotate(-4deg); }
+  .chip-palette { bottom: 30px; right: -20px; animation-delay: 0.4s; transform: rotate(7deg); }
+  .chip-tulip   { top: -18px; left: 50%; transform: translateX(-50%) rotate(-2deg); animation-delay: 0.05s; }
+
+  .chip-tennis:hover  { transform: rotate(-6deg) scale(1.08) translateY(-3px) !important; }
+  .chip-journal:hover { transform: rotate(5deg) scale(1.08) translateY(-3px) !important; }
+  .chip-poodle:hover  { transform: rotate(-4deg) scale(1.08) translateY(-3px) !important; }
+  .chip-palette:hover { transform: rotate(7deg) scale(1.08) translateY(-3px) !important; }
+  .chip-tulip:hover   { transform: translateX(-50%) rotate(-2deg) scale(1.08) translateY(-3px) !important; }
+
+  @keyframes float-in {
+    from { opacity: 0; transform: scale(0.7) translateY(10px); }
+    to   { opacity: 1; }
+  }
+
+  /* gentle float animation */
+  .chip-tennis  { animation: float-in 0.6s ease 0.1s both, drift1 4s ease-in-out 0.8s infinite; }
+  .chip-journal { animation: float-in 0.6s ease 0.2s both, drift2 5s ease-in-out 1s infinite; }
+  .chip-poodle  { animation: float-in 0.6s ease 0.3s both, drift3 4.5s ease-in-out 1.2s infinite; }
+  .chip-palette { animation: float-in 0.6s ease 0.4s both, drift1 5.5s ease-in-out 0.6s infinite; }
+  .chip-tulip   { animation: float-in 0.6s ease 0.05s both, drift2 3.8s ease-in-out 0.4s infinite; }
+
+  @keyframes drift1 { 0%,100%{transform:rotate(-6deg) translateY(0)} 50%{transform:rotate(-6deg) translateY(-6px)} }
+  @keyframes drift2 { 0%,100%{transform:rotate(5deg) translateY(0)}  50%{transform:rotate(5deg) translateY(-8px)} }
+  @keyframes drift3 { 0%,100%{transform:rotate(-4deg) translateY(0)} 50%{transform:rotate(-4deg) translateY(-5px)} }
+
+  /* fix hover states after animation */
+  .chip-tennis:hover  { animation: none !important; transform: rotate(-6deg) scale(1.1) translateY(-4px) !important; }
+  .chip-journal:hover { animation: none !important; transform: rotate(5deg)  scale(1.1) translateY(-4px) !important; }
+  .chip-poodle:hover  { animation: none !important; transform: rotate(-4deg) scale(1.1) translateY(-4px) !important; }
+  .chip-palette:hover { animation: none !important; transform: rotate(7deg)  scale(1.1) translateY(-4px) !important; }
+  .chip-tulip:hover   { animation: none !important; transform: translateX(-50%) rotate(-2deg) scale(1.1) translateY(-4px) !important; }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Audrey Leo</span>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Works</a>
+    <a href="#">Playground</a>
+    <a href="#">About</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-name">Audrey<br>Leo</div>
+    <div class="hero-desc">
+      a storyteller, a <strong>tulip tender</strong>, a designer.<br>
+      bridging creative computing, installation &amp; <strong>branding design.</strong>
+    </div>
+    <div class="badges">
+      <span class="badge"><span class="dot" style="background:#ECC8C5"></span>Branding</span>
+      <span class="badge"><span class="dot" style="background:#CBBFE0"></span>Creative Computing</span>
+      <span class="badge"><span class="dot" style="background:#A8BBA8"></span>Illustration</span>
+      <span class="badge"><span class="dot" style="background:#E8D4A0"></span>Installation</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- floating icon chips -->
+    <div class="icon-chip chip-tulip">
+      <span class="emoji">🌷</span> tulip tender
+    </div>
+    <div class="icon-chip chip-tennis">
+      <span class="emoji">🎾</span> tennis
+    </div>
+    <div class="icon-chip chip-journal">
+      <span class="emoji">📓</span> journaling
+    </div>
+    <div class="icon-chip chip-poodle">
+      <span class="emoji">🐩</span> poodle mom
+    </div>
+    <div class="icon-chip chip-palette">
+      <span class="emoji">🎨</span> painter
+    </div>
+
+    <!-- photo frame -->
+    <div class="photo-frame">
+      <div class="photo-label">your photo<br>here</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

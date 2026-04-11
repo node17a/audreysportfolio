@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Outfit:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #FAF7F2;
+    --blush: #ECC8C5;
+    --sage: #A8BBA8;
+    --ink: #2A2420;
+  }
+  body { background: #181614; padding: 32px 28px 60px; }
+
+  .q-header { margin-bottom: 28px; }
+  .q-header h1 { font-family: -apple-system, sans-serif; font-size: 15px; font-weight: 400; color: #bbb; margin-bottom: 6px; }
+  .q-header p  { font-family: -apple-system, sans-serif; font-size: 12px; color: #555; line-height: 1.6; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .full { margin-top: 16px; }
+
+  .panel {
+    background: var(--parchment);
+    border-radius: 10px; overflow: hidden;
+    cursor: pointer; border: 2px solid transparent;
+    transition: border-color .15s, transform .15s;
+  }
+  .panel:hover { transform: translateY(-2px); }
+  .panel.selected { border-color: var(--blush); }
+
+  .panel-body { padding: 32px 30px 28px; min-height: 200px; position: relative; }
+
+  .badge {
+    position: absolute; top: 14px; right: 14px;
+    font-family: -apple-system, sans-serif; font-size: 9px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: rgba(42,36,32,0.4);
+    background: rgba(42,36,32,0.06);
+    padding: 3px 9px; border-radius: 20px;
+  }
+
+  .eyebrow {
+    font-size: 9px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--sage);
+    margin-bottom: 12px;
+  }
+
+  .panel-footer {
+    padding: 11px 16px;
+    background: rgba(42,36,32,0.035);
+    border-top: 1px solid rgba(42,36,32,0.06);
+  }
+  .panel-footer strong { font-family: -apple-system, sans-serif; font-size: 11px; font-weight: 600; color: var(--ink); display: block; margin-bottom: 2px; }
+  .panel-footer p      { font-family: -apple-system, sans-serif; font-size: 11px; color: #888; line-height: 1.5; }
+  .sel { margin-top: 8px; padding: 4px 12px; border-radius: 20px; font-family: -apple-system, sans-serif; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; border: 1px solid rgba(42,36,32,0.2); background: transparent; color: var(--ink); cursor: pointer; }
+  .panel.selected .sel { background: var(--blush); border-color: var(--blush); }
+
+  /* ── A: Original spec — Cormorant Garamond (editorial serif) ── */
+  .a .name { font-family: 'Cormorant Garamond', Palatino, serif; font-size: 64px; font-weight: 300; letter-spacing: -0.02em; line-height: 0.9; color: var(--ink); }
+  .a .tag  { font-family: 'Cormorant Garamond', Palatino, serif; font-size: 14px; font-style: italic; font-weight: 300; line-height: 1.9; color: rgba(42,36,32,0.5); margin-top: 16px; }
+  .a .eyebrow { font-family: 'DM Sans', sans-serif; }
+
+  /* ── B: Nunito — rounded, warm, soft ── */
+  .b .name { font-family: 'Nunito', sans-serif; font-size: 58px; font-weight: 300; letter-spacing: -0.02em; line-height: 0.92; color: var(--ink); }
+  .b .tag  { font-family: 'Nunito', sans-serif; font-size: 14px; font-style: italic; font-weight: 300; line-height: 1.9; color: rgba(42,36,32,0.5); margin-top: 16px; }
+  .b .eyebrow { font-family: 'Nunito', sans-serif; }
+
+  /* ── C: Plus Jakarta Sans — clean, modern, closest to SF Pro feel ── */
+  .c .name { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 56px; font-weight: 300; letter-spacing: -0.03em; line-height: 0.9; color: var(--ink); }
+  .c .tag  { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-style: italic; font-weight: 300; line-height: 1.9; color: rgba(42,36,32,0.5); margin-top: 16px; }
+  .c .eyebrow { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+  /* ── D: Outfit — geometric, airy, editorial-leaning ── */
+  .d .name { font-family: 'Outfit', sans-serif; font-size: 60px; font-weight: 300; letter-spacing: -0.025em; line-height: 0.9; color: var(--ink); }
+  .d .tag  { font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 300; line-height: 1.9; color: rgba(42,36,32,0.5); margin-top: 16px; }
+  .d .eyebrow { font-family: 'Outfit', sans-serif; }
+</style>
+</head>
+<body>
+
+<div class="q-header">
+  <h1>Typography direction — which font feels right?</h1>
+  <p>Same layout, four different type choices. A is the original spec; B–D are softer/rounder/more modern.</p>
+</div>
+
+<div class="grid">
+  <!-- A -->
+  <div class="panel" id="pa" onclick="sel('a')">
+    <div class="panel-body a">
+      <div class="badge">Original spec</div>
+      <div class="eyebrow">Portfolio · 2026</div>
+      <div class="name">Audrey<br>Leo</div>
+      <div class="tag">a storyteller, a tulip tender,<br>a designer.</div>
+    </div>
+    <div class="panel-footer">
+      <strong>A — Cormorant Garamond</strong>
+      <p>Soft editorial serif. Dreamy, literary. Like an art book.</p>
+      <button class="sel">Select A</button>
+    </div>
+  </div>
+
+  <!-- B -->
+  <div class="panel" id="pb" onclick="sel('b')">
+    <div class="panel-body b">
+      <div class="badge">Rounded warm</div>
+      <div class="eyebrow">Portfolio · 2026</div>
+      <div class="name">Audrey<br>Leo</div>
+      <div class="tag">a storyteller, a tulip tender,<br>a designer.</div>
+    </div>
+    <div class="panel-footer">
+      <strong>B — Nunito</strong>
+      <p>Rounded, humanist, gentle. Warm and approachable.</p>
+      <button class="sel">Select B</button>
+    </div>
+  </div>
+
+  <!-- C -->
+  <div class="panel" id="pc" onclick="sel('c')">
+    <div class="panel-body c">
+      <div class="badge">Closest to SF Pro</div>
+      <div class="eyebrow">Portfolio · 2026</div>
+      <div class="name">Audrey<br>Leo</div>
+      <div class="tag">a storyteller, a tulip tender,<br>a designer.</div>
+    </div>
+    <div class="panel-footer">
+      <strong>C — Plus Jakarta Sans</strong>
+      <p>Clean, modern, slightly rounded. Very close to SF Pro's feel.</p>
+      <button class="sel">Select C</button>
+    </div>
+  </div>
+
+  <!-- D -->
+  <div class="panel" id="pd" onclick="sel('d')">
+    <div class="panel-body d">
+      <div class="badge">Geometric airy</div>
+      <div class="eyebrow">Portfolio · 2026</div>
+      <div class="name">Audrey<br>Leo</div>
+      <div class="tag">a storyteller, a tulip tender,<br>a designer.</div>
+    </div>
+    <div class="panel-footer">
+      <strong>D — Outfit</strong>
+      <p>Geometric, airy, editorial-leaning sans. Minimal and precise.</p>
+      <button class="sel">Select D</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function sel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('selected'));
+  document.getElementById('p'+id).classList.add('selected');
+  try { fetch('/event',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type:'click',choice:id,text:'Option '+id.toUpperCase(),timestamp:Math.floor(Date.now()/1000)})}).catch(()=>{}); } catch(e){}
+}
+</script>
+</body>
+</html>

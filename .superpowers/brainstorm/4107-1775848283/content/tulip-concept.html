@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --parchment: #FAF7F2;
+    --blush: #ECC8C5;
+    --sage: #A8BBA8;
+    --lavender: #CBBFE0;
+    --gold: #E8D4A0;
+    --ink: #2A2420;
+  }
+  body {
+    background: var(--parchment);
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 56px;
+    border-bottom: 1px solid rgba(42,36,32,0.07);
+  }
+  .nav-logo { font-size: 14px; font-weight: 400; letter-spacing: 0.04em; color: var(--ink); }
+  .nav-links { display: flex; gap: 28px; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(42,36,32,0.45); }
+  .nav-links a { text-decoration: none; color: inherit; transition: color .2s; }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 80px 56px 60px;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    min-height: 520px; position: relative; overflow: hidden;
+  }
+  .hero-text { flex: 1; z-index: 2; }
+  .eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sage); margin-bottom: 18px; }
+  .name-line1 { font-size: 100px; font-weight: 200; letter-spacing: -0.04em; line-height: 0.88; color: var(--ink); }
+  .name-line2 { font-size: 100px; font-weight: 200; letter-spacing: -0.04em; line-height: 0.88; color: var(--blush); margin-bottom: 28px; }
+  .tagline { font-size: 15px; font-style: italic; font-weight: 300; line-height: 1.9; color: rgba(42,36,32,0.5); max-width: 340px; }
+
+  /* ── TULIP FIELD ── */
+  .tulip-field {
+    position: absolute; right: 0; top: 0; bottom: 0;
+    width: 52%; pointer-events: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tulip-field svg { pointer-events: all; }
+
+  /* individual tulip stems */
+  .tulip-wrap {
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  }
+  .tulip-wrap:hover { transform: scale(1.08) translateY(-4px); }
+
+  /* glow effect */
+  .tulip-wrap .glow-circle {
+    transition: opacity 0.35s ease, r 0.35s ease;
+  }
+  .tulip-wrap:hover .glow-circle { opacity: 1 !important; }
+
+  /* petal gradient transitions */
+  .tulip-wrap .petal { transition: fill 0.3s ease; }
+
+  /* ── SECTION LABEL ── */
+  .section-note {
+    position: absolute; bottom: 28px; left: 56px;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(42,36,32,0.25);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">Audrey Leo</span>
+  <div class="nav-links">
+    <a href="#">Works</a>
+    <a href="#">Playground</a>
+    <a href="#">About</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-text">
+    <div class="eyebrow">Portfolio · 2026</div>
+    <div class="name-line1">Audrey</div>
+    <div class="name-line2">Leo</div>
+    <div class="tagline">a storyteller, a tulip tender,<br>a designer.<br>welcome to my garden.</div>
+  </div>
+
+  <!-- Gradient Tulip Garden SVG -->
+  <div class="tulip-field">
+    <svg width="520" height="480" viewBox="0 0 520 480" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- Tulip 1 — blush pink -->
+        <radialGradient id="g1" cx="50%" cy="70%" r="55%">
+          <stop offset="0%" stop-color="#F7D6D3"/>
+          <stop offset="60%" stop-color="#ECC8C5"/>
+          <stop offset="100%" stop-color="#D9A8A4"/>
+        </radialGradient>
+        <radialGradient id="glow1" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ECC8C5" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#ECC8C5" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- Tulip 2 — lavender -->
+        <radialGradient id="g2" cx="50%" cy="70%" r="55%">
+          <stop offset="0%" stop-color="#E2D6F5"/>
+          <stop offset="60%" stop-color="#CBBFE0"/>
+          <stop offset="100%" stop-color="#B8A8D0"/>
+        </radialGradient>
+        <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#CBBFE0" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#CBBFE0" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- Tulip 3 — gold -->
+        <radialGradient id="g3" cx="50%" cy="70%" r="55%">
+          <stop offset="0%" stop-color="#F5EAC8"/>
+          <stop offset="60%" stop-color="#E8D4A0"/>
+          <stop offset="100%" stop-color="#D4BC80"/>
+        </radialGradient>
+        <radialGradient id="glow3" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#E8D4A0" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#E8D4A0" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- Tulip 4 — sage -->
+        <radialGradient id="g4" cx="50%" cy="70%" r="55%">
+          <stop offset="0%" stop-color="#C8D8C8"/>
+          <stop offset="60%" stop-color="#A8BBA8"/>
+          <stop offset="100%" stop-color="#88A088"/>
+        </radialGradient>
+        <radialGradient id="glow4" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#A8BBA8" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#A8BBA8" stop-opacity="0"/>
+        </radialGradient>
+
+        <!-- Tulip 5 — deep blush -->
+        <radialGradient id="g5" cx="50%" cy="70%" r="55%">
+          <stop offset="0%" stop-color="#FADADD"/>
+          <stop offset="60%" stop-color="#E8B4B8"/>
+          <stop offset="100%" stop-color="#CC9098"/>
+        </radialGradient>
+        <radialGradient id="glow5" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#E8B4B8" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#E8B4B8" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- ── TULIP 1 — center-left, tallest ── -->
+      <g class="tulip-wrap" transform="translate(160, 30)">
+        <circle class="glow-circle" cx="40" cy="60" r="55" fill="url(#glow1)" opacity="0"/>
+        <!-- stem -->
+        <path d="M40 430 C40 380 38 320 40 260" stroke="#A8BBA8" stroke-width="2" stroke-linecap="round"/>
+        <!-- leaf -->
+        <path d="M40 340 C30 320 20 305 28 295 C36 285 42 305 40 320" fill="#C8D8C8" opacity="0.6"/>
+        <path d="M40 300 C50 280 62 268 54 258 C46 248 40 268 40 285" fill="#A8BBA8" opacity="0.5"/>
+        <!-- petals -->
+        <path d="M40 260 C32 250 22 238 22 226 C22 214 30 208 36 214 C38 216 39 220 40 226 C41 220 42 216 44 214 C50 208 58 214 58 226 C58 238 48 250 40 260Z" fill="url(#g1)" stroke="rgba(42,36,32,0.08)" stroke-width="0.5"/>
+        <!-- inner petal details -->
+        <path d="M36 235 C34 228 35 220 36 216" stroke="rgba(42,36,32,0.12)" stroke-width="0.6" fill="none"/>
+        <path d="M44 235 C46 228 45 220 44 216" stroke="rgba(42,36,32,0.12)" stroke-width="0.6" fill="none"/>
+      </g>
+
+      <!-- ── TULIP 2 — right, lavender, shorter ── -->
+      <g class="tulip-wrap" transform="translate(300, 80)">
+        <circle class="glow-circle" cx="35" cy="55" r="48" fill="url(#glow2)" opacity="0"/>
+        <path d="M35 390 C35 345 34 295 35 240" stroke="#A8BBA8" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M35 310 C25 292 16 278 24 269 C32 260 36 278 35 295" fill="#C8D8C8" opacity="0.55"/>
+        <path d="M35 240 C28 231 20 220 20 210 C20 200 27 195 32 200 C34 202 34.5 207 35 210 C35.5 207 36 202 38 200 C43 195 50 200 50 210 C50 220 42 231 35 240Z" fill="url(#g2)" stroke="rgba(42,36,32,0.08)" stroke-width="0.5"/>
+        <path d="M31 218 C30 212 30.5 205 31 201" stroke="rgba(42,36,32,0.1)" stroke-width="0.6" fill="none"/>
+        <path d="M39 218 C40 212 39.5 205 39 201" stroke="rgba(42,36,32,0.1)" stroke-width="0.6" fill="none"/>
+      </g>
+
+      <!-- ── TULIP 3 — far right, gold, medium ── -->
+      <g class="tulip-wrap" transform="translate(420, 50)">
+        <circle class="glow-circle" cx="30" cy="52" r="44" fill="url(#glow3)" opacity="0"/>
+        <path d="M30 420 C30 370 29 310 30 255" stroke="#A8BBA8" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M30 330 C22 312 14 298 21 289 C28 280 32 298 30 314" fill="#B8CCB8" opacity="0.5"/>
+        <path d="M30 255 C23 246 16 235 16 225 C16 215 23 210 28 215 C29.5 217 30 221 30 225 C30 221 30.5 217 32 215 C37 210 44 215 44 225 C44 235 37 246 30 255Z" fill="url(#g3)" stroke="rgba(42,36,32,0.07)" stroke-width="0.5"/>
+      </g>
+
+      <!-- ── TULIP 4 — left, sage, short bud ── -->
+      <g class="tulip-wrap" transform="translate(50, 100)">
+        <circle class="glow-circle" cx="30" cy="50" r="42" fill="url(#glow4)" opacity="0"/>
+        <path d="M30 400 C30 355 29 300 30 250" stroke="#A8BBA8" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M30 320 C21 302 13 290 20 281 C27 272 31 290 30 305" fill="#C8D8C8" opacity="0.5"/>
+        <!-- bud — not fully open -->
+        <path d="M30 250 C25 242 20 232 20 224 C20 216 25 213 28 217 C29 219 29.5 222 30 224 C30.5 222 31 219 32 217 C35 213 40 216 40 224 C40 232 35 242 30 250Z" fill="url(#g4)" stroke="rgba(42,36,32,0.08)" stroke-width="0.5"/>
+        <path d="M27 232 C26 226 27 219 28 218" stroke="rgba(42,36,32,0.1)" stroke-width="0.6" fill="none"/>
+        <path d="M33 232 C34 226 33 219 32 218" stroke="rgba(42,36,32,0.1)" stroke-width="0.6" fill="none"/>
+      </g>
+
+      <!-- ── TULIP 5 — between 1 and 2, deep blush, mid height ── -->
+      <g class="tulip-wrap" transform="translate(230, 120)">
+        <circle class="glow-circle" cx="32" cy="50" r="46" fill="url(#glow5)" opacity="0"/>
+        <path d="M32 370 C32 325 31 272 32 220" stroke="#A8BBA8" stroke-width="1.7" stroke-linecap="round"/>
+        <path d="M32 290 C24 273 16 260 23 251 C30 242 33 260 32 275" fill="#B8CCB8" opacity="0.5"/>
+        <path d="M32 220 C25 211 18 201 18 191 C18 181 25 176 30 181 C31.5 183 32 187 32 191 C32 187 32.5 183 34 181 C39 176 46 181 46 191 C46 201 39 211 32 220Z" fill="url(#g5)" stroke="rgba(42,36,32,0.08)" stroke-width="0.5"/>
+        <path d="M28 199 C27 193 28 187 29 183" stroke="rgba(42,36,32,0.12)" stroke-width="0.6" fill="none"/>
+        <path d="M36 199 C37 193 36 187 35 183" stroke="rgba(42,36,32,0.12)" stroke-width="0.6" fill="none"/>
+      </g>
+
+      <!-- ground line -->
+      <path d="M0 432 Q260 418 520 432" stroke="#A8BBA8" stroke-width="1" opacity="0.25" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="section-note">Hover each tulip ↗</div>
+</div>
+
+<style>
+  /* CSS-only glow on hover — React version will use framer-motion */
+  .tulip-wrap:hover .glow-circle {
+    opacity: 1 !important;
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 0.6; r: 55; }
+    50%      { opacity: 1;   r: 68; }
+  }
+</style>
+
+</body>
+</html>

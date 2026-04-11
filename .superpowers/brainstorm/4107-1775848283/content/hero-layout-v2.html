@@ -1,0 +1,159 @@
+<style>
+  :root {
+    --parchment: #FAF7F2;
+    --blush: #ECC8C5;
+    --sage: #A8BBA8;
+    --lavender: #CBBFE0;
+    --gold: #E8D4A0;
+    --ink: #2A2420;
+  }
+
+  .serif { font-family: Georgia, "Times New Roman", serif; }
+  .sans  { font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif; }
+
+  .preview-label {
+    font-family: -apple-system, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sage);
+    margin-bottom: 8px;
+  }
+
+  .hero-preview {
+    background: var(--parchment);
+    border: 1px solid #e8e2d9;
+    border-radius: 8px;
+    overflow: hidden;
+    color: var(--ink);
+    padding: 28px 32px;
+    min-height: 170px;
+    position: relative;
+  }
+
+  .name {
+    font-family: Georgia, serif;
+    font-size: 44px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1;
+    margin: 0 0 10px 0;
+  }
+
+  .tagline {
+    font-family: Georgia, serif;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #5a4f49;
+    margin: 0;
+  }
+
+  .nav-bar {
+    font-family: -apple-system, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.5;
+    display: flex;
+    gap: 18px;
+    margin-bottom: 22px;
+  }
+
+  .tulip-svg { position: absolute; }
+
+  /* A: Centered */
+  .layout-a .nav-bar   { justify-content: center; }
+  .layout-a .hero-text { text-align: center; position: relative; z-index: 1; }
+  .layout-a .tulip-svg { top: 10px; left: 50%; transform: translateX(-50%); opacity: 0.07; }
+
+  /* B: Left, tulip right */
+  .layout-b .nav-bar   { justify-content: flex-end; }
+  .layout-b .hero-text { text-align: left; max-width: 58%; position: relative; z-index: 1; }
+  .layout-b .tulip-svg { top: 0; right: 16px; opacity: 0.13; }
+
+  /* C: Left, tulip corner ornament */
+  .layout-c .nav-bar   { justify-content: flex-end; }
+  .layout-c .hero-text { text-align: left; position: relative; z-index: 1; }
+  .layout-c .tulip-svg { top: -8px; left: -8px; opacity: 0.08; }
+</style>
+
+<h2>Hero layout — which feels right?</h2>
+<p class="subtitle">Same content, three spatial arrangements. Fonts shown are system serif/sans — final build uses Cormorant Garamond + DM Sans.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="preview-label">A — Centered &amp; symmetrical</div>
+      <div class="hero-preview layout-a">
+        <div class="nav-bar">Home · Works · Playground · About</div>
+        <svg class="tulip-svg" width="150" height="185" viewBox="0 0 80 100" fill="none">
+          <path d="M40 92 C40 92 40 52 40 42" stroke="#2A2420" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M40 62 C35 57 27 51 25 43 C23 35 30 29 36 34 C38 36 39 38 40 42 C41 38 42 36 44 34 C50 29 57 35 55 43 C53 51 45 57 40 62Z" fill="#ECC8C5" stroke="#2A2420" stroke-width="0.8"/>
+          <path d="M33 43 C29 37 31 30 33 34" stroke="#2A2420" stroke-width="0.5" opacity="0.4"/>
+          <path d="M47 43 C51 37 49 30 47 34" stroke="#2A2420" stroke-width="0.5" opacity="0.4"/>
+          <path d="M40 72 C33 70 29 63 31 59" stroke="#A8BBA8" stroke-width="0.8" fill="none"/>
+          <path d="M40 78 C47 76 51 69 49 65" stroke="#A8BBA8" stroke-width="0.8" fill="none"/>
+        </svg>
+        <div class="hero-text">
+          <p class="name">Audrey Leo</p>
+          <p class="tagline">a storyteller, a tulip tender, a designer.<br>welcome to my garden.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Centered / symmetrical</h3>
+      <p>Nav centered, text centered. Tulip fades behind the name like pressed wallpaper. Formal, like a title page.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="preview-label">B — Left text, tulip right</div>
+      <div class="hero-preview layout-b">
+        <div class="nav-bar">Home · Works · Playground · About</div>
+        <svg class="tulip-svg" width="110" height="140" viewBox="0 0 80 100" fill="none">
+          <path d="M40 92 C40 92 40 52 40 42" stroke="#2A2420" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M40 62 C35 57 27 51 25 43 C23 35 30 29 36 34 C38 36 39 38 40 42 C41 38 42 36 44 34 C50 29 57 35 55 43 C53 51 45 57 40 62Z" fill="#ECC8C5" stroke="#2A2420" stroke-width="0.8"/>
+          <path d="M40 72 C33 70 29 63 31 59" stroke="#A8BBA8" stroke-width="0.8" fill="none"/>
+          <path d="M40 78 C47 76 51 69 49 65" stroke="#A8BBA8" stroke-width="0.8" fill="none"/>
+        </svg>
+        <div class="hero-text">
+          <p class="name">Audrey Leo</p>
+          <p class="tagline">a storyteller, a tulip tender, a designer.<br>welcome to my garden.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Left text, tulip right</h3>
+      <p>Nav top-right, text left. Tulip illustration floats opposite — like a field journal spread.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div class="preview-label">C — Left text, tulip corner ornament</div>
+      <div class="hero-preview layout-c">
+        <div class="nav-bar">Home · Works · Playground · About</div>
+        <svg class="tulip-svg" width="90" height="110" viewBox="0 0 80 100" fill="none">
+          <path d="M40 92 C40 92 40 52 40 42" stroke="#2A2420" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M40 62 C35 57 27 51 25 43 C23 35 30 29 36 34 C38 36 39 38 40 42 C41 38 42 36 44 34 C50 29 57 35 55 43 C53 51 45 57 40 62Z" fill="#ECC8C5" stroke="#2A2420" stroke-width="0.8"/>
+          <path d="M40 72 C33 70 29 63 31 59" stroke="#A8BBA8" stroke-width="0.8" fill="none"/>
+          <path d="M40 78 C47 76 51 69 49 65" stroke="#A8BBA8" stroke-width="0.8" fill="none"/>
+        </svg>
+        <div class="hero-text">
+          <p class="name">Audrey Leo</p>
+          <p class="tagline">a storyteller, a tulip tender, a designer.<br>welcome to my garden.</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Left text, tulip corner</h3>
+      <p>Nav top-right, text left. Tulip is a very faded corner ornament — subtle, like a wax seal.</p>
+    </div>
+  </div>
+
+</div>
