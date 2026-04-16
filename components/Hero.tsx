@@ -90,7 +90,7 @@ export default function Hero() {
           className="absolute float float-delay-1"
           style={{ top: '12%', left: '3%', '--rotation': '-2deg' } as React.CSSProperties}
         >
-          <div className="-rotate-[2deg]">
+          <div>
             <div className="w-1 h-16 bg-black mx-auto rounded" />
             <div className="bg-[#1a1a1a] rounded-2xl w-48 p-5 shadow-xl">
               <div className="flex gap-3 items-start">
@@ -136,7 +136,7 @@ export default function Hero() {
           style={{ top: '5%', left: '22%', '--rotation': '1deg' } as React.CSSProperties}
         >
           <div
-            className="rotate-[1deg] bg-white shadow-md"
+            className="bg-white shadow-md"
             style={{
               width: '380px',
               paddingBottom: '2.5rem',
@@ -161,7 +161,7 @@ export default function Hero() {
           className="absolute float float-delay-1"
           style={{ top: '8%', right: '6%', '--rotation': '2deg' } as React.CSSProperties}
         >
-          <div className="rotate-[2deg] bg-white border-2 border-black rounded-lg w-72 shadow-lg flex overflow-hidden">
+          <div className="bg-white border-2 border-black rounded-lg w-72 shadow-lg flex overflow-hidden">
             <div className="flex-1 p-5">
               <p className="font-bold text-2xl leading-tight">ART × TECHNOLOGY</p>
               <div className="flex items-center gap-1 mt-1">
@@ -197,7 +197,7 @@ export default function Hero() {
           className="absolute float float-delay-4"
           style={{ top: '15%', right: '-1%', '--rotation': '1deg' } as React.CSSProperties}
         >
-          <div className="rotate-[1deg] bg-[#C8A97E] rounded-2xl p-4 shadow-2xl relative" style={{ width: '340px' }}>
+          <div className="bg-[#C8A97E] rounded-2xl p-4 shadow-2xl relative" style={{ width: '340px' }}>
             <div className="grid grid-cols-3 gap-1">
               {polaroids.map((p, i) => (
                 <div key={i} className={`bg-white p-1.5 pb-6 shadow-md ${p.rotate}`}>
@@ -219,7 +219,7 @@ export default function Hero() {
           className="absolute float float-delay-5"
           style={{ bottom: '20%', left: '30%', '--rotation': '-3deg' } as React.CSSProperties}
         >
-          <div className="-rotate-[3deg] relative" style={{ width: '128px' }}>
+          <div className="relative" style={{ width: '128px' }}>
             <div className="w-16 h-4 bg-[#F5C842] rounded-t-lg absolute top-0 left-4" />
             <div className="w-32 h-24 bg-[#F5C842] rounded-b-xl rounded-tr-xl shadow-lg mt-3 relative overflow-hidden">
               <div className="absolute inset-2 bg-[#FBDA61] rounded-xl" />
@@ -252,7 +252,7 @@ export default function Hero() {
         >
           <div
             className="w-20 h-28 bg-white shadow-md flex items-end justify-center pb-3"
-            style={{ borderRadius: '50% 50% 0 0', transform: 'rotate(5deg)' }}
+            style={{ borderRadius: '50% 50% 0 0' }}
           >
             <span className="text-3xl">🌸</span>
           </div>
