@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ── Float animation ── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }
+  50%       { transform: translateY(-8px) rotate(var(--rotation, 0deg)); }
+}
+
+.float           { animation: float 3s ease-in-out infinite; }
+.float-delay-1   { animation-delay: 0.3s; }
+.float-delay-2   { animation-delay: 0.6s; }
+.float-delay-3   { animation-delay: 0.9s; }
+.float-delay-4   { animation-delay: 1.2s; }
+.float-delay-5   { animation-delay: 1.5s; }
+
+/* ── Cursor blink ── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink { animation: blink 1s step-end infinite; }
+
+/* ── Masonry columns (responsive) ── */
+.masonry {
+  column-count: 1;
+  column-gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .masonry { column-count: 2; }
+}
+
+@media (min-width: 1024px) {
+  .masonry { column-count: 3; }
+}
