@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import Navbar from '@/components/Navbar'
 
 const sfPro = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif'
 
@@ -358,6 +359,8 @@ export default function Garden() {
   }, [])
 
   return (
+    <>
+    <Navbar />
     <div style={{
       position: 'relative', width: '100%',
       height: '100vh', overflow: 'hidden',
@@ -371,13 +374,6 @@ export default function Garden() {
       `,
     }}>
       <NoiseOverlay />
-
-      {/* Back */}
-      <Link href="/" style={{
-        position: 'absolute', top: 24, left: 28,
-        fontFamily: sfPro, fontSize: '0.7rem', color: '#B0A4C8',
-        textDecoration: 'none', letterSpacing: '0.02em', zIndex: 20,
-      }}>← back</Link>
 
       {/* About modal */}
       <AnimatePresence>
@@ -610,5 +606,6 @@ export default function Garden() {
         )}
       </AnimatePresence>
     </div>
+    </>
   )
 }

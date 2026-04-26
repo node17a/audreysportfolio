@@ -1,158 +1,114 @@
 'use client'
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-const sfPro = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif'
+const sfPro = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
+const mono  = '"SF Mono", ui-monospace, "Cascadia Code", monospace'
 
 const projects = [
   {
     id: 1,
     title: 'Impermanence',
     description: 'Interact with light, color, and sound in an experience exploring memory, change, and letting go.',
-    company: 'UCL Slade',
-    type: 'Creative Computing',
-    year: '2024',
+    tags: ['CREATIVE COMPUTING', 'INTERACTIVE'],
     image: null,
-    bg: '#C9D9C8',
+    bg: '#D8DDD8',
+    aspectRatio: '4/3',
   },
   {
     id: 2,
     title: 'Memory Distortion Box',
     description: 'Sound installation built with Arduino + Pure Data. Trigger memories that fragment and distort with proximity.',
-    company: 'UCL Slade',
-    type: 'Machine Learning & Product Design',
-    year: '2024',
+    tags: ['MACHINE LEARNING', 'INSTALLATION'],
     image: null,
     bg: '#1a1a2e',
+    aspectRatio: '4/3',
   },
   {
     id: 3,
     title: 'Plastic Panic',
     description: '2D pixel game in C++. Guide a turtle, dodge trash, earn points, and learn how ocean waste impacts our planet.',
-    company: 'UCL Slade',
-    type: 'Game Design',
-    year: '2024',
+    tags: ['GAME DESIGN', 'C++'],
     image: null,
     bg: '#134E5E',
+    aspectRatio: '4/3',
   },
   {
     id: 4,
     title: 'ACS Jakarta Batik',
     description: 'Traditional Indonesian batik pattern selected among 800+ submissions — now the official uniform for ACS Jakarta.',
-    company: 'ACS Jakarta',
-    type: 'Illustration',
-    year: '2023',
+    tags: ['ILLUSTRATION', 'TEXTILE'],
     image: null,
     bg: '#C4956A',
+    aspectRatio: '4/3',
   },
   {
     id: 5,
     title: 'Compact CR Purifier',
     description: 'Reimagined Corsi-Rosenthal box air purifier designed for accessibility, replicability, and everyday use.',
-    company: 'Independent',
-    type: 'Product Design',
-    year: '2023',
+    tags: ['PRODUCT DESIGN'],
     image: null,
     bg: '#D6D0C8',
+    aspectRatio: '4/3',
+  },
+  {
+    id: 6,
+    title: 'Generative Type',
+    description: 'Typeface experiments using p5.js — letters that breathe, warp, and respond to cursor movement.',
+    tags: ['CREATIVE CODING', 'TYPOGRAPHY'],
+    image: null,
+    bg: '#2D1B4E',
+    aspectRatio: '4/3',
   },
 ]
 
-function ProjectCard({
-  project,
-  imageHeight = 280,
-  delay = 0,
-}: {
-  project: (typeof projects)[number]
-  imageHeight?: number
-  delay?: number
-}) {
-  const isDark = ['#1', '#0'].some(p => project.bg.toLowerCase().startsWith(p))
+function ProjectCard({ project, index }: { project: typeof projects[number]; index: number }) {
+  const isDark = ['#1', '#0', '#2', '#8'].some(p => project.bg.toLowerCase().startsWith(p))
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay }}
-      whileHover={{ y: -3 }}
-      style={{ cursor: 'pointer' }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: (index % 2) * 0.08 }}
+      style={{ cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: 14 }}
     >
-      {/* Image / placeholder */}
-      <div
-        style={{
-          width: '100%',
-          height: imageHeight,
-          borderRadius: 12,
-          background: project.bg,
-          overflow: 'hidden',
-          position: 'relative',
-        }}
-      >
-        {project.image ? (
-          <img
-            src={project.image}
-            alt={project.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-          />
-        ) : (
-          <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <span style={{ fontFamily: sfPro, fontSize: '0.55rem', color: isDark ? 'rgba(255,255,255,0.18)' : 'rgba(0,0,0,0.15)', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-              image coming soon
-            </span>
-          </div>
+      {/* Image area */}
+      <div style={{ width: '100%', aspectRatio: project.aspectRatio, background: project.bg, position: 'relative', overflow: 'hidden' }}>
+        {project.image && (
+          <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
         )}
-
-        {/* Type tag — top-left overlay */}
-        <div style={{
-          position: 'absolute', top: 12, left: 12,
-          background: isDark ? 'rgba(255,255,255,0.14)' : 'rgba(0,0,0,0.12)',
-          backdropFilter: 'blur(6px)',
-          borderRadius: 20,
-          padding: '4px 10px',
-        }}>
+        {/* Tag — top left overlay */}
+        <div style={{ position: 'absolute', top: 14, left: 14 }}>
           <span style={{
-            fontFamily: sfPro,
-            fontSize: '0.6rem',
-            fontWeight: 500,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: isDark ? 'rgba(255,255,255,0.82)' : 'rgba(0,0,0,0.62)',
+            fontFamily: mono,
+            fontSize: '0.62rem',
+            color: isDark ? 'rgba(255,255,255,0.55)' : 'rgba(0,0,0,0.45)',
+            letterSpacing: '0.06em',
           }}>
-            {project.type}
+            [{project.tags.join(', ')}]
           </span>
         </div>
       </div>
 
-      {/* Caption */}
-      <div style={{ marginTop: 14, display: 'flex', flexDirection: 'column', gap: 5 }}>
-        <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 8 }}>
-          <span style={{
-            fontFamily: sfPro,
-            fontSize: '0.92rem',
-            fontWeight: 600,
-            color: '#1a1a1a',
-            letterSpacing: '-0.01em',
-            lineHeight: 1.2,
-          }}>
-            {project.title}
-          </span>
-          <span style={{
-            fontFamily: sfPro,
-            fontSize: '0.68rem',
-            fontWeight: 400,
-            color: '#999',
-            whiteSpace: 'nowrap',
-            letterSpacing: '0.01em',
-          }}>
-            {project.company} · {project.year}
-          </span>
-        </div>
+      {/* Text below image */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <h2 style={{
+          fontFamily: sfPro,
+          fontWeight: 500,
+          fontSize: 'clamp(1rem, 1.4vw, 1.15rem)',
+          color: '#111',
+          letterSpacing: '-0.01em',
+          margin: 0,
+          lineHeight: 1.25,
+        }}>
+          {project.title}
+        </h2>
         <p style={{
           fontFamily: sfPro,
-          fontSize: '0.76rem',
-          color: '#666',
-          lineHeight: 1.6,
+          fontSize: '0.75rem',
+          color: '#999',
+          lineHeight: 1.55,
           fontWeight: 400,
           margin: 0,
         }}>
@@ -164,71 +120,51 @@ function ProjectCard({
 }
 
 export default function Works() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-
   return (
-    <section id="works" ref={ref} style={{ background: '#FAFAF8', padding: '100px 0' }}>
+    <section id="works" style={{ background: '#F5F5F3', padding: '80px 0 120px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px' }}>
 
-        {/* Header */}
+        {/* Rounded frame */}
+        <div style={{
+          border: '1px solid #E0E0DC',
+          borderRadius: 24,
+          padding: '48px',
+          background: '#F5F5F3',
+        }}>
+
+        {/* 2-column grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px 32px' }}>
+          {projects.map((p, i) => (
+            <ProjectCard key={p.id} project={p} index={i} />
+          ))}
+        </div>
+
+        {/* View all link */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.55 }}
-          style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 52 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          style={{ marginTop: 72, textAlign: 'center' }}
         >
-          <div>
-            <p style={{
-              fontFamily: sfPro,
-              fontSize: '0.62rem',
-              letterSpacing: '0.2em',
-              color: '#bbb',
-              textTransform: 'uppercase',
-              margin: '0 0 10px',
-            }}>
-              Selected Works
-            </p>
-            <h2 style={{
-              fontFamily: sfPro,
-              fontWeight: 300,
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              color: '#1a1a1a',
-              letterSpacing: '-0.03em',
-              margin: 0,
-              lineHeight: 1.05,
-            }}>
-              Things I&apos;ve made.
-            </h2>
-          </div>
           <Link
             href="/works"
             style={{
-              fontFamily: sfPro,
-              fontSize: '0.73rem',
-              color: '#888',
+              fontFamily: mono,
+              fontSize: '0.65rem',
+              color: '#aaa',
               textDecoration: 'none',
-              letterSpacing: '0.01em',
+              letterSpacing: '0.1em',
+              textTransform: 'uppercase',
               borderBottom: '1px solid #ddd',
-              paddingBottom: 2,
+              paddingBottom: 3,
             }}
           >
-            view all →
+            [view all works →]
           </Link>
         </motion.div>
 
-        {/* Row 1 — two cards, left wider */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.35fr 1fr', gap: 24, marginBottom: 24 }}>
-          <ProjectCard project={projects[0]} imageHeight={320} delay={0} />
-          <ProjectCard project={projects[1]} imageHeight={320} delay={0.08} />
-        </div>
-
-        {/* Row 2 — three equal cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 24 }}>
-          <ProjectCard project={projects[2]} imageHeight={220} delay={0.12} />
-          <ProjectCard project={projects[3]} imageHeight={220} delay={0.18} />
-          <ProjectCard project={projects[4]} imageHeight={220} delay={0.24} />
-        </div>
+        </div>{/* end rounded frame */}
 
       </div>
     </section>
