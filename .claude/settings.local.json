@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npm create:*)"
+      "Bash(npm create:*)",
+      "Bash(curl -s https://audreyleo.com/works/__TRACKED_VAR__)",
+      "Bash(curl -s \"https://framerusercontent.com/sites/1LJJgLcAAvDnH7rFT3Kec6/searchIndex-5pAeTbETP5Ou.json\")",
+      "Bash(python3 -c \"import json,sys; data=json.load\\(sys.stdin\\); [print\\(item\\) for item in data if 'p5' in str\\(item\\).lower\\(\\) or 'setup' in str\\(item\\).lower\\(\\) or 'draw' in str\\(item\\).lower\\(\\)]\")",
+      "Read(//Users/dreiiz/Downloads/**)"
     ]
   }
 }

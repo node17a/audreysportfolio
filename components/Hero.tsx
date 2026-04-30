@@ -1,11 +1,79 @@
 'use client'
-import { useRef } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import dynamic from 'next/dynamic'
 
 const SleepingModel = dynamic(() => import('./SleepingModel'), { ssr: false })
 
 const sfPro = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
+
+const mono = '"SF Mono", ui-monospace, "Cascadia Code", monospace'
+
+const roles = [
+  { text: 'creative designer', color: '#4285F4', symbol: '✦' },
+  { text: 'digital tinkerer',  color: '#EA4335', symbol: '⊹' },
+  { text: 'eternal dreamer',   color: '#9B59B6', symbol: '˖' },
+  { text: 'brand strategist',  color: '#FBBC05', symbol: '✳' },
+  { text: 'sales assistant',   color: '#34A853', symbol: '❋' },
+  { text: 'campaign builder',  color: '#EA4335', symbol: '✸' },
+  { text: 'chronic napper',    color: '#9B59B6', symbol: 'zZ' },
+]
+
+function CyclingRole() {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const id = setInterval(() => setIndex(i => (i + 1) % roles.length), 2400)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6, delay: 0.15 }}
+      style={{ display: 'flex', alignItems: 'center', gap: 8, height: 28, overflow: 'hidden' }}
+    >
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={`sym-l-${index}`}
+          initial={{ y: 24, opacity: 0 }}
+          animate={{ y: 0, opacity: 0.6 }}
+          exit={{ y: -24, opacity: 0 }}
+          transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+          style={{ fontFamily: mono, fontSize: '0.6rem', color: roles[index].color, userSelect: 'none', flexShrink: 0 }}
+        >
+          {roles[index].symbol}
+        </motion.span>
+      </AnimatePresence>
+
+      <div style={{ position: 'relative', height: '100%', display: 'flex', alignItems: 'center', minWidth: 170, overflow: 'hidden' }}>
+        <AnimatePresence mode="wait">
+          <motion.span
+            key={`text-${index}`}
+            initial={{ y: 24, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -24, opacity: 0 }}
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              display: 'block',
+              fontFamily: mono,
+              fontSize: '0.78rem',
+              fontWeight: 400,
+              color: roles[index].color,
+              whiteSpace: 'nowrap',
+              letterSpacing: '0.03em',
+              position: 'absolute',
+            }}
+          >
+            {roles[index].text}
+          </motion.span>
+        </AnimatePresence>
+      </div>
+
+    </motion.div>
+  )
+}
 
 // ── Boxed chip (Maje, UCL — keep the pill) ───────────────────────────────────
 function BrandChip({ src, alt, width = 52, bg = '#f0f0f0' }: { src: string; alt: string; width?: number; bg?: string }) {
@@ -61,32 +129,21 @@ export default function Hero() {
         {/* ── RIGHT (visually): Bio ── */}
         <div style={{ flex: '0 0 48%', display: 'flex', flexDirection: 'column', gap: 32 }}>
 
-          {/* Name + seal */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
-            <motion.h1
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              style={{ fontFamily: sfPro, fontWeight: 600, fontSize: 'clamp(2.6rem, 4vw, 4rem)', color: '#111', letterSpacing: '-0.03em', lineHeight: 1, margin: 0 }}
-            >
-              Audrey Leo
-            </motion.h1>
-            <WaxSeal />
+          {/* Name + seal + cycling role */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                style={{ fontFamily: sfPro, fontWeight: 600, fontSize: 'clamp(2.6rem, 4vw, 4rem)', color: '#111', letterSpacing: '-0.03em', lineHeight: 1, margin: 0 }}
+              >
+                Audrey Leo
+              </motion.h1>
+              <WaxSeal />
+            </div>
+            <CyclingRole />
           </div>
-
-          {/* Bio paragraph */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-            style={{ fontFamily: sfPro, fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)', color: '#1a1a1a', lineHeight: 1.65, fontWeight: 300, letterSpacing: '-0.01em' }}
-          >
-            Audrey is a{' '}
-            <span style={{ fontWeight: 500, color: '#111' }}>designer</span>,{' '}
-            <span style={{ fontWeight: 500, color: '#111' }}>marketing strategist</span>,{' '}
-            <span style={{ fontWeight: 500, color: '#111' }}>creator</span> and{' '}
-            <span style={{ fontWeight: 500, color: '#111' }}>builder</span>, making complex ideas feel human.
-          </motion.div>
 
           {/* Company lines */}
           <motion.div
