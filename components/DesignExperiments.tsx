@@ -1,7 +1,29 @@
 'use client'
+import { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { sfPro, mono } from '@/lib/fonts'
 import { useIsMobile } from '@/lib/useIsMobile'
+
+function AutoVideo({ src, bg }: { src: string; bg?: string }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const v = ref.current
+    if (!v) return
+    v.muted = true
+    v.play().catch(() => {})
+  }, [])
+  return (
+    <video
+      ref={ref}
+      src={src}
+      autoPlay
+      loop
+      muted
+      playsInline
+      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', background: bg }}
+    />
+  )
+}
 
 const F = (id: string) => `https://framerusercontent.com/images/${id}`
 
@@ -78,14 +100,7 @@ export default function DesignExperiments() {
                 background: card.bg ?? '#E8E4DE',
               }}>
                 {card.type === 'video' ? (
-                  <video
-                    src={card.src}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                  />
+                  <AutoVideo src={card.src} bg={card.bg} />
                 ) : (
                   <img
                     src={card.src}

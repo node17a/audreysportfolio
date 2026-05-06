@@ -1,10 +1,16 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 export default function IntroVideo() {
   const [visible, setVisible] = useState(true)
   const [fading, setFading]   = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (!videoRef.current) return
+    videoRef.current.muted = true
+    videoRef.current.play().catch(() => {})
+  }, [])
 
   const dismiss = () => {
     setFading(true)

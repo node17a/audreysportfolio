@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
+import AutoPlayVideo from '@/components/AutoPlayVideo'
 import { projects, getProject } from '@/lib/projects'
 import { sfPro, mono } from '@/lib/fonts'
 
@@ -253,12 +254,8 @@ export default function CaseStudyPage({ params }: Props) {
                 {section.video && (
                   <figure style={{ margin: 0 }}>
                     <div style={{ borderRadius: 14, overflow: 'hidden' }}>
-                      <video
+                      <AutoPlayVideo
                         src={section.video}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
                         style={{ width: '100%', display: 'block' }}
                       />
                     </div>
@@ -338,12 +335,8 @@ export default function CaseStudyPage({ params }: Props) {
                 <figure key={i} style={{ margin: 0 }}>
                   <div style={{ borderRadius: 14, overflow: 'hidden', aspectRatio: '16/9' }}>
                     {img.isVideo ? (
-                      <video
+                      <AutoPlayVideo
                         src={img.src}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
                         style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
                       />
                     ) : (
