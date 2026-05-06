@@ -13,22 +13,25 @@ function Model({
   mousePosRef: React.MutableRefObject<{ x: number; y: number }>
 }) {
   const { scene: gltfScene } = useGLTF('/sleeping.glb')
+  // Clone so useEffect mutations (materials, rim meshes) never touch the cached original
   const scene = useMemo(() => gltfScene.clone(true), [gltfScene])
   const groupRef    = useRef<THREE.Group>(null)
   const tRef        = useRef(0)
-  const autoRotYRef = useRef(0)   // always-incrementing auto rotation
-  const offsetXRef  = useRef(0)   // hover tilt X (recoils back)
-  const offsetYRef  = useRef(0)   // hover tilt Y (recoils back)
+  const autoRotYRef = useRef(0)
+  const offsetXRef  = useRef(0)
+  const offsetYRef  = useRef(0)
 
+  // Always compute from the original — it is never placed in the R3F scene graph
+  // so its position/scale/matrixWorld are never modified between navigations.
   const { sc, offset } = useMemo(() => {
-    const box    = new THREE.Box3().setFromObject(scene)
+    const box    = new THREE.Box3().setFromObject(gltfScene)
     const size   = new THREE.Vector3()
     const center = new THREE.Vector3()
     box.getSize(size)
     box.getCenter(center)
     const sc = 2.6 / Math.max(size.x, size.y, size.z)
     return { sc, offset: center }
-  }, [scene])
+  }, [gltfScene])
 
   useEffect(() => {
     // Solid iridescent pearl — you can see all the features clearly,
