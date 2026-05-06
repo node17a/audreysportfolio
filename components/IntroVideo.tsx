@@ -7,9 +7,13 @@ export default function IntroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    if (!videoRef.current) return
-    videoRef.current.muted = true
-    videoRef.current.play().catch(() => {})
+    const v = videoRef.current
+    if (!v) return
+    v.muted = true
+    const tryPlay = () => v.play().catch(() => {})
+    tryPlay()
+    v.addEventListener('canplay', tryPlay)
+    return () => v.removeEventListener('canplay', tryPlay)
   }, [])
 
   const dismiss = () => {

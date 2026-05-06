@@ -13,8 +13,28 @@ export default function AutoPlayVideo({ src, style, className }: Props) {
   useEffect(() => {
     const v = ref.current
     if (!v) return
+
     v.muted = true
-    v.play().catch(() => {})
+
+    const tryPlay = () => { v.play().catch(() => {}) }
+
+    // Attempt immediately
+    tryPlay()
+
+    // Retry once the video has buffered enough
+    v.addEventListener('canplay', tryPlay)
+
+    // Retry whenever it scrolls into view (covers off-screen / lazy-rendered cases)
+    const io = new IntersectionObserver(
+      (entries) => { if (entries[0].isIntersecting) tryPlay() },
+      { threshold: 0.1 }
+    )
+    io.observe(v)
+
+    return () => {
+      v.removeEventListener('canplay', tryPlay)
+      io.disconnect()
+    }
   }, [])
 
   return (
@@ -25,6 +45,7 @@ export default function AutoPlayVideo({ src, style, className }: Props) {
       loop
       muted
       playsInline
+      preload="auto"
       style={style}
       className={className}
     />

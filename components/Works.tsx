@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { projects as realProjects } from '@/lib/projects'
@@ -25,6 +25,27 @@ type DisplayProject = typeof displayProjects[number]
 function ProjectCard({ project, index }: { project: DisplayProject; index: number }) {
   const [hovered, setHovered] = useState(false)
   const hasVideo = !!project.video && !!project.videoHover
+  const vid1Ref = useRef<HTMLVideoElement>(null)
+  const vid2Ref = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const tryPlay = (v: HTMLVideoElement | null) => {
+      if (!v) return
+      v.muted = true
+      const play = () => v.play().catch(() => {})
+      play()
+      v.addEventListener('canplay', play)
+      const io = new IntersectionObserver(
+        (entries) => { if (entries[0].isIntersecting) play() },
+        { threshold: 0.1 }
+      )
+      io.observe(v)
+      return () => { v.removeEventListener('canplay', play); io.disconnect() }
+    }
+    const c1 = tryPlay(vid1Ref.current)
+    const c2 = tryPlay(vid2Ref.current)
+    return () => { c1?.(); c2?.() }
+  }, [])
 
   return (
     <motion.div
@@ -112,8 +133,9 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
         {hasVideo ? (
           <>
             <video
+              ref={vid1Ref}
               src={project.video}
-              autoPlay loop muted playsInline
+              autoPlay loop muted playsInline preload="auto"
               style={{
                 position: 'absolute', inset: 0,
                 width: '100%', height: '100%',
@@ -124,8 +146,9 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
               }}
             />
             <video
+              ref={vid2Ref}
               src={project.videoHover}
-              autoPlay loop muted playsInline
+              autoPlay loop muted playsInline preload="auto"
               style={{
                 position: 'absolute', inset: 0,
                 width: '100%', height: '100%',
