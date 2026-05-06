@@ -12,7 +12,8 @@ function Model({
   isHoveredRef: React.MutableRefObject<boolean>
   mousePosRef: React.MutableRefObject<{ x: number; y: number }>
 }) {
-  const { scene } = useGLTF('/sleeping.glb')
+  const { scene: gltfScene } = useGLTF('/sleeping.glb')
+  const scene = useMemo(() => gltfScene.clone(true), [gltfScene])
   const groupRef    = useRef<THREE.Group>(null)
   const tRef        = useRef(0)
   const autoRotYRef = useRef(0)   // always-incrementing auto rotation
