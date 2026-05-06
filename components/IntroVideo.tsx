@@ -1,20 +1,13 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 export default function IntroVideo() {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
   const [fading, setFading]   = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  useEffect(() => {
-    if (!sessionStorage.getItem('intro_played')) {
-      setVisible(true)
-    }
-  }, [])
-
   const dismiss = () => {
     setFading(true)
-    sessionStorage.setItem('intro_played', '1')
     setTimeout(() => setVisible(false), 650)
   }
 
