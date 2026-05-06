@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { projects as realProjects } from '@/lib/projects'
 import { sfPro, mono } from '@/lib/fonts'
+import { useIsMobile } from '@/lib/useIsMobile'
 
 const displayProjects = realProjects
   .filter(p => p.slug !== 'batik')
@@ -180,12 +181,14 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
 }
 
 export default function Works() {
+  const isMobile = useIsMobile()
+
   return (
     <section id="works" style={{ background: '#F5F5F3', padding: '16px 0 120px' }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 48px' }}>
 
-          {/* 2-column grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px 32px' }}>
+          {/* 2-column grid — single column on mobile */}
+          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px 32px' }}>
             {displayProjects.map((p, i) =>
               p.slug ? (
                 <Link key={p.id} href={`/works/${p.slug}`} style={{ textDecoration: 'none', display: 'block' }} data-cursor="explore">

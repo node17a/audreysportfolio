@@ -2,6 +2,7 @@
 import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { sfPro } from '@/lib/fonts'
+import { useIsMobile } from '@/lib/useIsMobile'
 
 const SleepingModel = dynamic(() => import('./SleepingModel'), { ssr: false })
 
@@ -20,6 +21,8 @@ function LogoImg({ src, alt, height = 18, width }: { src: string; alt: string; h
 }
 
 export default function Hero() {
+  const isMobile = useIsMobile()
+
   return (
     <section style={{ position: 'relative', background: '#F5F5F3', overflow: 'hidden' }}>
 
@@ -31,20 +34,28 @@ export default function Hero() {
       <div style={{ position: 'absolute', bottom: '-8%', left: '-4%', width: 400, height: 400, borderRadius: '50%', background: 'radial-gradient(circle, rgba(190,220,255,0.22) 0%, transparent 65%)', filter: 'blur(56px)', pointerEvents: 'none' }} />
 
       {/* Two-column layout */}
-      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '130px 64px 90px', display: 'flex', alignItems: 'center', gap: 56, position: 'relative', zIndex: 1 }}>
+      <div style={{
+        maxWidth: 1280, margin: '0 auto',
+        padding: isMobile ? '100px 24px 60px' : '130px 64px 90px',
+        display: 'flex',
+        flexDirection: isMobile ? 'column-reverse' : 'row',
+        alignItems: isMobile ? 'flex-start' : 'center',
+        gap: isMobile ? 32 : 56,
+        position: 'relative', zIndex: 1,
+      }}>
 
-        {/* LEFT: 3D model */}
+        {/* LEFT: 3D model — appears below text on mobile (column-reverse) */}
         <motion.div
-          initial={{ opacity: 0, x: -32 }}
+          initial={{ opacity: 0, x: isMobile ? 0 : -32 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          style={{ flex: '0 0 42%', height: 380, pointerEvents: 'none' }}
+          style={{ flex: isMobile ? 'none' : '0 0 42%', width: isMobile ? '100%' : undefined, height: isMobile ? 260 : 380, pointerEvents: 'none' }}
         >
           <SleepingModel />
         </motion.div>
 
         {/* RIGHT: content */}
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, width: isMobile ? '100%' : undefined }}>
 
           {/* Heading */}
           <motion.h1

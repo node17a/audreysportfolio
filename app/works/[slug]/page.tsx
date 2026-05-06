@@ -49,7 +49,7 @@ export default function CaseStudyPage({ params }: Props) {
       <main style={{ background: '#fff', minHeight: '100vh' }}>
 
         {/* ── HERO: tag + H1 + subtitle paragraph + skip link ── */}
-        <div style={{ maxWidth: 820, margin: '0 auto', padding: '160px 48px 72px' }}>
+        <div className="cs-hero-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '160px 48px 72px' }}>
           <p style={{
             fontFamily: mono,
             fontSize: '0.58rem',
@@ -102,7 +102,7 @@ export default function CaseStudyPage({ params }: Props) {
         </div>
 
         {/* ── SHOWCASE IMAGES ── */}
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 48px 72px' }}>
+        <div className="cs-pad" style={{ maxWidth: 1100, margin: '0 auto', padding: '0 48px 72px' }}>
           {project.showcaseImages.length === 1 ? (
             <div style={{ borderRadius: 16, overflow: 'hidden' }}>
               <img
@@ -133,8 +133,8 @@ export default function CaseStudyPage({ params }: Props) {
         </div>
 
         {/* ── METADATA: SCOPE | ROLE ── */}
-        <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
-          <div style={{
+        <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
+          <div className="cs-grid-2" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: 40,
@@ -173,7 +173,7 @@ export default function CaseStudyPage({ params }: Props) {
         </div>
 
         {/* ── PROBLEM SPACE ── */}
-        <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
+        <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
           <Label text="PROBLEM SPACE" />
           <h2 style={{
             fontFamily: sfPro,
@@ -199,7 +199,7 @@ export default function CaseStudyPage({ params }: Props) {
         </div>
 
         {/* ── CONCEPT ── */}
-        <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
+        <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
           <Label text="CONCEPT" />
           <h2 style={{
             fontFamily: sfPro,
@@ -225,7 +225,7 @@ export default function CaseStudyPage({ params }: Props) {
         </div>
 
         {/* ── PROCESS ── */}
-        <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
+        <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
           <Label text="PROCESS" />
           <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 64 }}>
             {project.processSections.map((section, i) => (
@@ -308,7 +308,7 @@ export default function CaseStudyPage({ params }: Props) {
 
         {/* ── FINAL DESIGN ── */}
         {project.finalImages.length > 0 && (
-          <div id="final" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
+          <div id="final" className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
             <Label text="FINAL DESIGN" />
             <h2 style={{
               fontFamily: sfPro,
@@ -367,7 +367,7 @@ export default function CaseStudyPage({ params }: Props) {
 
         {/* ── REFLECTION ── */}
         {project.reflection.length > 0 && (
-          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
+          <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
             <Label text="REFLECTION" />
             <h2 style={{
               fontFamily: sfPro,
@@ -411,7 +411,7 @@ export default function CaseStudyPage({ params }: Props) {
 
         {/* ── SOURCE CODE ── */}
         {project.sourceCode && (
-          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
+          <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
             <Label text="SOURCE CODE" />
             <a
               href={project.sourceCode.url}
@@ -436,7 +436,7 @@ export default function CaseStudyPage({ params }: Props) {
         )}
 
         {/* ── INTERESTED IN MORE? ── */}
-        <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 40px' }}>
+        <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 40px' }}>
           <Label text="INTERESTED IN MORE?" />
           <h2 style={{
             fontFamily: sfPro,
@@ -450,7 +450,7 @@ export default function CaseStudyPage({ params }: Props) {
             See the next projects here →
           </h2>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+          <div className="cs-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
             {nextProjects.map((p) => (
               <Link key={p.slug} href={`/works/${p.slug}`} style={{ textDecoration: 'none', display: 'block' }}>
                 <div style={{
@@ -493,7 +493,7 @@ export default function CaseStudyPage({ params }: Props) {
         </div>
 
         {/* ── FOOTER ── */}
-        <div style={{
+        <div className="cs-pad cs-footer-flex" style={{
           maxWidth: 820,
           margin: '0 auto',
           padding: '40px 48px 100px',

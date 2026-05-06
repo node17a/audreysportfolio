@@ -1,6 +1,7 @@
 'use client'
 import { motion } from 'framer-motion'
 import { sfPro, mono } from '@/lib/fonts'
+import { useIsMobile } from '@/lib/useIsMobile'
 
 const F = (id: string) => `https://framerusercontent.com/images/${id}`
 
@@ -34,9 +35,11 @@ const cards: {
 ]
 
 export default function DesignExperiments() {
+  const isMobile = useIsMobile()
+
   return (
     <section style={{ background: '#F5F5F3', paddingBottom: 120 }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 48px' }}>
 
         {/* Header */}
         <motion.div
@@ -56,7 +59,7 @@ export default function DesignExperiments() {
         </motion.div>
 
         {/* Grid */}
-        <div style={{ display: 'flex', gap: 20 }}>
+        <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 20 }}>
           {cards.map((card, i) => (
             <motion.div
               key={i}
@@ -69,7 +72,7 @@ export default function DesignExperiments() {
               {/* Media */}
               <div style={{
                 width: '100%',
-                height: HEIGHT,
+                height: isMobile ? 260 : HEIGHT,
                 borderRadius: 16,
                 overflow: 'hidden',
                 background: card.bg ?? '#E8E4DE',

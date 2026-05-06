@@ -2,6 +2,7 @@
 import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { sfPro, mono } from '@/lib/fonts'
+import { useIsMobile } from '@/lib/useIsMobile'
 
 const STARS = [
   // row 1 — very top strip
@@ -46,6 +47,7 @@ const STARS = [
 ]
 
 export default function Contact() {
+  const isMobile = useIsMobile()
   const sectionRef = useRef<HTMLElement>(null)
   const isInView   = useInView(sectionRef, { once: true, margin: '-40px' })
 
@@ -56,7 +58,7 @@ export default function Contact() {
       style={{
         background: '#F5F5F3',
         borderTop: '1px solid #E4E4E0',
-        padding: '36px 64px 32px',
+        padding: isMobile ? '36px 24px 32px' : '36px 64px 32px',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -108,10 +110,10 @@ export default function Contact() {
         {/* Bottom row */}
         <div style={{
           display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
           justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: 12,
+          alignItems: isMobile ? 'flex-start' : 'center',
+          gap: isMobile ? 16 : 12,
         }}>
           <span style={{
             fontFamily: mono,

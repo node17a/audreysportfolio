@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { sfPro } from '@/lib/fonts'
+import { useIsMobile } from '@/lib/useIsMobile'
 
 const links = [
   { label: 'Home',   href: '/' },
@@ -12,6 +13,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname()
+  const isMobile = useIsMobile()
 
   return (
     <div style={{
@@ -23,7 +25,7 @@ export default function Navbar() {
       display: 'flex',
       justifyContent: 'center',
       pointerEvents: 'none',
-      padding: '0 24px',
+      padding: '0 16px',
     }}>
       {/* Outer pill */}
       <div style={{
@@ -51,7 +53,7 @@ export default function Navbar() {
             gap: 9,
             background: 'rgba(255,255,255,0.75)',
             borderRadius: 999,
-            padding: '5px 16px 5px 5px',
+            padding: isMobile ? '5px 5px' : '5px 16px 5px 5px',
             border: '1px solid rgba(0,0,0,0.06)',
           }}>
             <img
@@ -59,9 +61,11 @@ export default function Navbar() {
               alt="Audrey Leo"
               style={{ height: 30, width: 'auto', display: 'block', flexShrink: 0 }}
             />
-            <span style={{ fontFamily: sfPro, fontSize: '0.85rem', fontWeight: 500, color: '#111', letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>
-              Audrey Leo
-            </span>
+            {!isMobile && (
+              <span style={{ fontFamily: sfPro, fontSize: '0.85rem', fontWeight: 500, color: '#111', letterSpacing: '-0.01em', whiteSpace: 'nowrap' }}>
+                Audrey Leo
+              </span>
+            )}
           </div>
         </Link>
 
@@ -83,11 +87,11 @@ export default function Navbar() {
                 href={l.href}
                 style={{
                   fontFamily: sfPro,
-                  fontSize: '0.83rem',
+                  fontSize: isMobile ? '0.78rem' : '0.83rem',
                   fontWeight: active ? 600 : 400,
                   color: active ? '#111' : '#888',
                   textDecoration: 'none',
-                  padding: '6px 16px',
+                  padding: isMobile ? '6px 10px' : '6px 16px',
                   borderRadius: 999,
                   letterSpacing: '-0.01em',
                   whiteSpace: 'nowrap',

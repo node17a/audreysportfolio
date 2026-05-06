@@ -31,6 +31,29 @@ html {
 
 .cursor-blink { animation: blink 1s step-end infinite; }
 
+/* ── Case study page (server component) — mobile overrides ── */
+@media (max-width: 767px) {
+  .cs-hero-pad {
+    padding-top: 100px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .cs-pad {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .cs-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cs-footer-flex {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+}
+
 /* ── Masonry columns (responsive) ── */
 .masonry {
   column-count: 1;

@@ -3,6 +3,7 @@ import { useState, useRef } from 'react'
 import { motion } from 'framer-motion'
 import Navbar from '@/components/Navbar'
 import { sfPro, mono } from '@/lib/fonts'
+import { useIsMobile } from '@/lib/useIsMobile'
 
 function PhotoVideoCard() {
   const [hovered, setHovered] = useState(false)
@@ -178,6 +179,8 @@ const outside = [
 ]
 
 export default function AboutPage() {
+  const isMobile = useIsMobile()
+
   return (
     <>
       <Navbar />
@@ -224,17 +227,19 @@ export default function AboutPage() {
           <line x1="83%" y1="78%" x2="89%" y2="88%" stroke="#D4C5E8" strokeOpacity="0.12" strokeWidth="0.8"/>
         </svg>
 
-        <div style={{ maxWidth: 1000, margin: '0 auto', padding: '148px 48px 120px', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: 1000, margin: '0 auto', padding: isMobile ? '100px 24px 80px' : '148px 48px 120px', position: 'relative', zIndex: 1 }}>
 
           {/* ── Bio section ── */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            style={{ display: 'grid', gridTemplateColumns: '420px 1fr', gap: '0 56px', alignItems: 'stretch' }}
+            style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '420px 1fr', gap: isMobile ? '24px 0' : '0 56px', alignItems: 'stretch' }}
           >
             {/* Photo */}
-            <PhotoVideoCard />
+            <div style={{ height: isMobile ? 320 : undefined }}>
+              <PhotoVideoCard />
+            </div>
 
             {/* Text */}
             <div style={{ paddingTop: 8 }}>
