@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter, Dancing_Script, DM_Sans } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import ClientProviders from '@/components/ClientProviders'
 
@@ -49,6 +50,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${dancingScript.variable} ${dmSans.variable}`}>
       <body className="font-sans antialiased" style={{ cursor: 'none' }}>
         <ClientProviders>{children}</ClientProviders>
+        <Analytics />
       </body>
     </html>
   )
