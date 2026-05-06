@@ -6,6 +6,10 @@ html {
   scroll-behavior: smooth;
 }
 
+*, *::before, *::after {
+  cursor: none !important;
+}
+
 /* ── Float animation ── */
 @keyframes float {
   0%, 100% { transform: translateY(0px) rotate(var(--rotation, 0deg)); }

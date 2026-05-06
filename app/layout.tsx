@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Dancing_Script, DM_Sans } from 'next/font/google'
 import './globals.css'
+import ClientProviders from '@/components/ClientProviders'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -33,6 +34,10 @@ export const metadata: Metadata = {
       'Portfolio of Audrey Leo, art & technology student at UCL Slade School of Art.',
     type: 'website',
   },
+  icons: [
+    { rel: 'icon', type: 'image/svg+xml', url: '/favicon.svg' },
+    { rel: 'icon', type: 'image/png', url: '/a-logo.png' },
+  ],
 }
 
 export default function RootLayout({
@@ -42,7 +47,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${inter.variable} ${dancingScript.variable} ${dmSans.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased" style={{ cursor: 'none' }}>
+        <ClientProviders>{children}</ClientProviders>
+      </body>
     </html>
   )
 }

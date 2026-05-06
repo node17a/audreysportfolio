@@ -154,6 +154,13 @@ export default function SleepingModel() {
     }
   }
 
+  // Force R3F to re-measure the container after the browser has finished layout.
+  // Without this, a hard refresh can give the canvas wrong initial dimensions.
+  useEffect(() => {
+    const t = setTimeout(() => window.dispatchEvent(new Event('resize')), 0)
+    return () => clearTimeout(t)
+  }, [])
+
   return (
     <div
       ref={containerRef}
@@ -166,11 +173,12 @@ export default function SleepingModel() {
       <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 65% 55% at 50% 54%, rgba(190,155,255,0.28) 0%, rgba(255,190,230,0.12) 45%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
 
       {/* Canvas — pointerEvents none so drag events reach outer div */}
-      <div style={{ position: 'absolute', inset: 0, zIndex: 1, pointerEvents: 'none' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1, pointerEvents: 'none' }}>
         <Canvas
           camera={{ position: [0, 0, 5], fov: 35 }}
+          dpr={[1, 1.5]}
           gl={{ antialias: true, alpha: true, toneMapping: THREE.ACESFilmicToneMapping, toneMappingExposure: 1.4 }}
-          style={{ background: 'transparent' }}
+          style={{ background: 'transparent', width: '100%', height: '100%', display: 'block' }}
         >
           <Environment preset="city" />
           <ambientLight intensity={1.8} />
@@ -195,9 +203,7 @@ export default function SleepingModel() {
       {/* Stars */}
       <FloatingStar delay={0.3} x="18%" y="15%" size={13} />
       <FloatingStar delay={1.6} x="72%" y="18%" size={10} />
-      <FloatingStar delay={2.7} x="14%" y="42%" size={8}  />
       <FloatingStar delay={0.9} x="76%" y="54%" size={11} />
-      <FloatingStar delay={3.2} x="26%" y="62%" size={7}  />
 
 <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '25%', background: 'linear-gradient(to top, rgba(248,246,242,0.5), transparent)', pointerEvents: 'none', zIndex: 2 }} />
     </div>

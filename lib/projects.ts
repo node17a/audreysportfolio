@@ -5,6 +5,8 @@ export type ProcessSection = {
   body: string
   image?: string
   imageCaption?: string
+  image2?: string
+  imageCaption2?: string
   video?: string
 }
 
@@ -43,6 +45,7 @@ export type Project = {
 
   reflectionHeading: string
   reflection: ReflectionItem[]
+  sourceCode?: { url: string; label: string }
 }
 
 export const projects: Project[] = [
@@ -56,20 +59,19 @@ export const projects: Project[] = [
     heroImage: F('GMNzAMSCYtZXRzaB7bg0DFxz08.gif'),
 
     h1: 'A p5.js installation that turns darkness into living memory',
-    subtitleParagraph: 'Impermanence is a browser-based installation controlled by an Arduino photoresistor. When the room darkens, coloured particles bloom and pentatonic notes emerge — as if memory is surfacing. When light returns, everything dissolves. No button. No interface. Just a room and whatever you bring into it.',
+    subtitleParagraph: 'Impermanence is a browser-based installation controlled by an Arduino photoresistor. When the room darkens, coloured particles bloom and pentatonic notes emerge, as if memory is surfacing. When light returns, everything dissolves.',
     year: '2024',
     scope: 'Creative Computing\nInteractive Installation',
     role: 'Solo. Concept, circuit design, p5.js code, and sound system.',
     showcaseImages: [
       F('GMNzAMSCYtZXRzaB7bg0DFxz08.gif'),
-      F('TMyHiq1SiK9esypoj7AADxXGQWc.jpg'),
     ],
 
     problemSpaceHeading: 'Memory is not stored. It is performed — and it needs the right conditions.',
     problemSpace: 'We forget not because we choose to, but because the conditions for remembering stop existing. A smell, a song, a sudden quiet — these are triggers, not choices. **Impermanence** builds that logic into hardware: a photoresistor sensor that releases colour and sound only when the room is dark. You cannot force it. You can only remove the light.',
 
     conceptHeading: 'What if forgetting was just a problem of light?',
-    concept: 'An Arduino Uno reads ambient light continuously via a photoresistor voltage divider. When darkness drops below a set threshold, p5.js spawns coloured particles and activates pentatonic oscillators — the room begins to remember. Sustained darkness triggers memory mode: particles glow brighter and resist decay. When light returns, everything dissolves. The audience does not interact. They inhabit.',
+    concept: 'An Arduino Uno reads ambient light continuously via a photoresistor voltage divider. When darkness drops below a set threshold, p5.js spawns coloured particles and activates pentatonic oscillators, and the room begins to remember. Sustained darkness triggers memory mode: particles glow brighter and resist decay. When light returns, everything dissolves. The audience does not interact. They inhabit.',
 
     processSections: [
       {
@@ -78,9 +80,9 @@ export const projects: Project[] = [
       },
       {
         title: 'Visual System',
-        body: 'Twelve pastel colours, each assigned a unique pentatonic frequency, map to individual particle types. Particles exhibit emergent flocking behaviour — connecting via proximity-based lines when within 80px of each other. Extended darkness beyond 1.5 seconds triggers memory mode, where particles glow brighter and their decay timer resets.',
-        image: F('GMNzAMSCYtZXRzaB7bg0DFxz08.gif'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Live capture. Particle system responding to darkness. Each colour corresponds to a unique frequency.',
+        body: 'The visual logic was drawn directly from constellations: nodes of light connected by proximity, not by design. Twelve pastel colours, each assigned a unique pentatonic frequency, map to individual particle types. Particles exhibit emergent flocking behaviour, connecting via proximity-based lines when within 80px of each other. Extended darkness beyond 1.5 seconds triggers memory mode, where particles glow brighter and their decay timer resets. The result is a sky that shifts each time the room goes dark.',
+        image: '/constellation.webp',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ I\'ve always been so fascinated by these sparkles above.',
       },
       {
         title: 'Sound Design',
@@ -98,7 +100,7 @@ export const projects: Project[] = [
     finalImages: [
       {
         src: F('GMNzAMSCYtZXRzaB7bg0DFxz08.gif'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Live installation, UCL Slade 2024. Particle density increases with darkness duration.',
+        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ look at them go !!! little particles finding each other in the dark ,,',
       },
     ],
 
@@ -106,69 +108,73 @@ export const projects: Project[] = [
     reflection: [
       {
         title: 'Web Serial is fragile in ways that matter',
-        body: 'Permissions reset between sessions. Cables introduce signal noise. Baud rate mismatches produce silence rather than errors. Building a fallback mode that simulates sensor input from the mouse would make this viable in any gallery context — not just ones where serial works.',
+        body: 'Permissions reset between sessions. Cables introduce signal noise. Baud rate mismatches produce silence rather than errors. Building a fallback mode that simulates sensor input from the mouse would make this viable in any gallery context, not just ones where serial works.',
       },
       {
         title: 'The threshold is a design decision, not a calibration',
-        body: 'Setting the darkness threshold at 300 was not a technical choice — it was a curatorial one: how dark does the room need to be before memory surfaces? A future version would let the threshold shift across an exhibition\'s run, so the piece becomes harder to trigger as the days progress.',
+        body: 'Setting the darkness threshold at 300 was not a technical choice. It was a curatorial one: how dark does the room need to be before memory surfaces? A future version would let the threshold shift across an exhibition\'s run, so the piece becomes harder to trigger as the days progress.',
       },
     ],
+    sourceCode: {
+      url: 'https://editor.p5js.org/audrey17leo/sketches/_ktpYi75f',
+      label: 'View source on p5.js editor',
+    },
   },
 
   // ── MEMORY DISTORTION BOX ───────────────────────────────────────────────────
   {
     slug: 'memory-distortion-box',
     title: 'Memory Distortion Box',
-    subtitle: 'A sensor-driven sound installation that treats grief as data — retrieved only in darkness, never on demand.',
+    subtitle: 'A sensor-driven sound installation that treats grief as data, retrieved only in darkness, never on demand.',
     tags: ['INSTALLATION', 'SOUND ART'],
     bg: '#1a1a2e',
     heroImage: '/memory-distortion-box-cover.png',
 
     h1: 'A sensor-driven sound installation that treats grief as a retrieval problem',
-    subtitleParagraph: 'Also titled Random Access Grief, the Memory Distortion Box is a sealed object with no visible controls. It contains a photoresistor, an Arduino, and three layered audio channels run through Pure Data. When the room darkens, the audio begins — slowing, distorting, reversing. When light returns, silence. You cannot ask it anything. You can only wait.',
+    subtitleParagraph: 'Also titled Random Access Grief, the Memory Distortion Box is a sealed, featureless object built around an Arduino Uno, a photoresistor voltage divider on analog pin A0, and a three-channel Pure Data patch communicating over serial at 9600 baud. The 10-bit ADC reading maps ambient light to playback speed, pitch shift, and reverb depth in real time. When the room darkens past the threshold, the audio begins: slowing, distorting, reversing. When light returns, silence.',
     year: '2024',
-    scope: 'Sound Installation\nPhysical Fabrication',
-    role: 'Solo. Concept, enclosure fabrication, circuit design, and Pure Data audio programming.',
+    scope: 'Sound Installation\nPhysical Fabrication\nCircuit Design\nDSP Programming',
+    role: 'Solo. Concept, CAD modelling, laser-cut fabrication, circuit design, and Pure Data DSP programming.',
     showcaseImages: [
       '/memory-distortion-box-cover.png',
     ],
 
     problemSpaceHeading: "Grief doesn't arrive when you call it. It arrives when the room gets quiet.",
-    problemSpace: 'The Memory Distortion Box builds emotional logic into hardware. There is no interface, no button, no screen. **A photoresistor sensor is the only input.** The only way to hear the piece is to make the room dark — which means slowing down, covering the aperture with your hand, and waiting. The piece enforces a posture that most digital grief objects do not.',
+    problemSpace: 'The Memory Distortion Box encodes interaction into the physics of the circuit. The photoresistor on A0 is the only input: no buttons, no screen, no UI. Ambient light keeps the analog read value high and the audio silent. Darkness drops the reading below the threshold (empirically set at 300 out of 1023) and triggers playback. The only way to hear the piece is to physically block the sensor with your hand and wait, which enforces a slowness that most digital experiences do not.',
 
     conceptHeading: 'Emotional memory as data corruption. Loss as hardware failure.',
-    concept: 'The work draws from Nina Lykke on vibrant death, Audrey Samson on digital funerals, and Mary Shelley\'s Frankenstein — grief as system process, loss as data corruption. Three audio channels run in parallel: a recorded voice fragment, a synthesised drone, and a granular texture layer. Each responds to the sensor differently — the voice slows and reverses; the drone drops in pitch; the texture density increases. The three layers never fully sync, producing an always-shifting composition that cannot be heard the same way twice.',
+    concept: 'Three audio channels run concurrently in a Pure Data patch, each receiving the same normalised sensor value (0.0 to 1.0) but processing it through different DSP chains. Channel 1 uses [speed~] on a voice recording: playback rate drops linearly with light level and reverses below 0.3. Channel 2 passes a drone oscillator through [pitch~], dropping by up to a tritone in total darkness. Channel 3 drives a granular texture via grain size and density parameters, becoming denser as light falls. The three channels are summed but never tempo-synced, producing a composition that shifts irreproducibly each time the threshold is crossed.',
 
     processSections: [
       {
         title: 'Enclosure',
-        body: 'The physical box was modelled in AutoCAD, laser-cut from black MDF, and assembled with 3D-printed corner brackets. The design is deliberately **featureless**: no visible electronics, no indicator lights, no label. The object should read as an archive, not a gadget. The photoresistor sits behind a small aperture on the front face — barely visible until you look for it.',
-        image: F('dxTiqEF1kzI84WXVQxeFdo9YvgA.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Finished enclosure. Laser-cut MDF. The photoresistor aperture sits on the front face.',
+        body: 'The enclosure was designed in AutoCAD as a 180×120×80mm box with finger-joint edges and kerf compensation set to 0.2mm for the laser cutter. Material: 6mm black MDF, cut on a CO2 laser, assembled with wood glue and internal 3D-printed PLA corner brackets for rigidity. The front face has a 6mm circular aperture for the photoresistor, no label, no indicator LED, no visible seam. The Arduino and breadboard sit on a laser-cut internal shelf; all wiring is routed flush to avoid rattle. The object is deliberately archival in appearance: it should read as a found object, not a prototype.',
+        image: '/3dmodel.png',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ 3D model. AutoCAD enclosure design before fabrication.',
       },
       {
         title: 'Circuit and Sensor Logic',
-        body: 'An Arduino Uno with a photoresistor voltage divider sends light values over serial to Pure Data. The PD patch maps these values to playback speed, pitch, and reverb depth — darker room means slower, lower, more distorted audio. The mapping curves are exponential, not linear: small changes near the threshold produce dramatic shifts in sound.',
-        image: F('jcWnNh2XQzANhtazhUAFduc3YI.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Arduino circuit. Photoresistor voltage divider wired to analog input A0.',
+        body: 'The sensor circuit is a standard photoresistor voltage divider: a 10kΩ fixed resistor and an LDR in series between 5V and GND, with the midpoint read on Arduino analog pin A0. The Arduino\'s 10-bit ADC returns values from 0 (dark) to 1023 (bright). These values are sent over serial at 9600 baud as a single integer per loop iteration. The Pure Data patch receives via [comport] and normalises the reading to a 0.0–1.0 float using [/ 1023]. The threshold (300) was determined empirically during calibration: it corresponds to the ambient light level of a dim gallery room with no directed light on the sensor.',
+        image: '/tinkercad-schematic.png',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Schematic made on Tinkercad.',
       },
       {
         title: 'Audio System',
-        body: 'Three audio layers run in parallel in Pure Data. The voice fragment — a field recording of a conversation — slows below intelligibility and eventually reverses. The drone pitch follows the sensor: darkest room, lowest note. The granular texture layer increases in density, filling the silences the other layers leave. The three channels are mixed but never synced.',
-        image: F('2Gbc2EgI0DuORbWIKq993qZw.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Pure Data patch. Three-channel audio system with sensor-mapped parameters.',
+        body: 'The Pure Data patch runs three independent DSP chains fed by the same normalised sensor value. Voice channel: a pre-recorded field recording loaded into [readsf~], routed through a [vd~] variable delay line to simulate speed change. Below a normalised value of 0.3, playback direction inverts via buffer scrubbing. Drone channel: a [osc~] sine oscillator detuned in real time using the sensor value mapped to a pitch range of one tritone (six semitones), processed through a [freeverb~] reverb unit with wet depth also sensor-driven. Granular channel: a custom granular abstraction controls grain size (30 to 300ms), density (1 to 12 grains/sec), and scatter, all inverse-mapped to light level. The three channels sum to a stereo [dac~] output. No tempo sync between channels: the composition is structurally non-repeating.',
+        image: '/puredata.png',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Pure Data patch. Three-channel DSP system with sensor-mapped parameters.',
       },
     ],
 
-    meetTheWork: 'Random Access Grief. A box that remembers on its own terms — only in the dark, never twice the same way.',
+    meetTheWork: 'Random Access Grief. A box that remembers on its own terms: only in the dark, never twice the same way.',
     finalImages: [
       {
-        src: F('LIDJaHcpCu72wmbIeF8IQtDo8.jpg'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Installation view. Memory Distortion Box in the UCL Slade gallery, 2024.',
+        src: F('dxTiqEF1kzI84WXVQxeFdo9YvgA.jpg'),
+        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Finished Piece.',
       },
       {
         src: F('LcHld9m2pHmj4Yprv3J6BtyH0BM.jpg'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Detail. Visitors instinctively covered the sensor with their hand.',
+        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Other tinkers we did, lasercut and soldering.',
       },
     ],
 
@@ -176,11 +182,11 @@ export const projects: Project[] = [
     reflection: [
       {
         title: 'The hand was the right interface all along',
-        body: 'Visitors consistently placed their hand over the aperture rather than blocking ambient light from a distance. That intimate gesture changed what the piece meant. A v2 would design for that: a sensor recessed into a palm-sized indent that invites the hand as the primary interaction.',
+        body: 'Visitors consistently covered the aperture with their palm rather than reducing ambient room light. This collapsed the interaction distance from room-scale to body-scale, which changed what the piece communicated. A v2 would formalise this: replace the LDR with a proximity or capacitive touch sensor recessed into a palm-sized indent, giving the hand a designated place and making the gesture legible without instruction. The circuit change is minimal; the interaction design implication is significant.',
       },
       {
-        title: 'Complexity in Pure Data is a maintenance problem',
-        body: 'The patch became complex enough that debugging during the exhibition was genuinely risky. A modular rebuild — clearly named subpatches, a calibration mode accessible without a laptop — would make this viable for a longer run or an unattended installation.',
+        title: 'Modular patch design is a production requirement, not a preference',
+        body: 'The PD patch grew organically during development and became difficult to debug under exhibition conditions. A single misrouted connection could silence all three channels with no obvious visual indicator. A v2 would restructure into named subpatches ([voice-channel], [drone-channel], [granular-channel]) with isolated test modes, a [loadbang]-driven calibration routine, and error state indicators using [print] to console. Maintainability in live installation contexts is a design constraint, not an afterthought.',
       },
     ],
   },
@@ -189,13 +195,13 @@ export const projects: Project[] = [
   {
     slug: 'plastic-panic',
     title: 'Plastic Panic',
-    subtitle: 'A 2D pixel game where you guide a sea turtle through ocean debris — education disguised as play.',
+    subtitle: 'A 2D pixel game built in Godot where ocean debris density scales with survival time. Education through systems, not lectures.',
     tags: ['GAME DESIGN', 'C++', 'PIXEL ART', 'ORIGINAL MUSIC'],
     bg: '#134E5E',
     heroImage: F('v6vBj0wRDyoQcOvYUg0KCOKBwSg.jpg'),
 
     h1: 'A pixel game that makes ocean pollution feel urgent before you have time to think',
-    subtitleParagraph: 'Plastic Panic is a 2D pixel game built in Godot where the player controls a sea turtle navigating an ocean filling with trash. Points reward survival. Failure means watching the turtle slow, then stop. The mechanic is simple by design — the emotional weight comes from what the turtle represents, not from game complexity.',
+    subtitleParagraph: 'Plastic Panic is a 2D pixel game built in Godot using GDScript. The player controls a sea turtle navigating a procedurally spawning debris field; spawn rate scales with elapsed survival time. Collision applies a progressive speed penalty until movement stops. The mechanic is deliberately simple: the weight comes from what the turtle represents, not from system complexity.',
     year: '2024',
     scope: 'Game Design\nCreative Technology',
     role: 'Solo. Visual design, Godot/C++ programming, sprite animation, and original music composition in Strudel.',
@@ -204,44 +210,40 @@ export const projects: Project[] = [
     ],
 
     problemSpaceHeading: 'Environmental education fails when it lectures. It works when it makes you feel something first.',
-    problemSpace: 'Kids in Bali are on their phones while the beaches around them fill with plastic. A beach cleanup I attended made this visceral: the plastic being collected was immediately replaced by new plastic washing in from the tide. **The cleanup felt futile in a way that was clarifying.** The problem is not littering — it is scale. Plastic Panic tries to communicate that scale through repetition: trash keeps coming, and the player has to keep moving.',
+    problemSpace: 'A beach cleanup in Bali made the scale of the problem concrete: plastic being collected was immediately replaced by new plastic washing in from the tide. The cleanup felt futile in a way that was clarifying. The problem is not littering; it is throughput. Plastic Panic communicates that through repetition: trash keeps spawning, spawn rate keeps climbing, and the player has to keep moving.',
 
     conceptHeading: 'The mechanic is simple. The weight comes from what the turtle represents.',
-    concept: 'A sea turtle navigates an ocean filling with trash. The spawn rate accelerates over time — there is no winning, only surviving longer. Collision means the turtle slows, then stops. No explosion. No drama. Just stillness. The game is designed to feel futile just before it ends, which is the point.',
+    concept: 'A sea turtle navigates an ocean filling with debris. Spawn rate accelerates over elapsed time; there is no winning state, only a longer survival interval. Collision triggers a progressive movement speed reduction until the entity reaches zero velocity. No explosion, no game-over fanfare. The system is designed to feel futile just before it terminates.',
 
     processSections: [
       {
         title: 'Sprite Design',
-        body: 'All assets were drawn in Procreate at **32×32px** — the turtle, three trash variants (plastic bag, bottle, wrapper), and the ocean background tiles. Keeping everything at 32×32 was a constraint that forced visual clarity: every object had to read immediately, with no room for detail. The turtle needed to feel alive. The trash needed to feel wrong in the same space.',
+        body: 'All assets were drawn in Procreate at 32x32px: the turtle, three trash variants (plastic bag, bottle, wrapper), and tiling ocean background. The 32x32 constraint enforced legibility at runtime scale with no room for surface detail. Character and object designs were kept visually distinct to ensure immediate readability at high debris density.',
         image: F('jEDXcktxbk4MdNruBhFeZou94c.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Pixel Art Sprite Sheet. Characters and trash objects drawn at 32×32px in Procreate.',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Sprite sheet. Characters and trash objects drawn at 32x32px in Procreate.',
       },
       {
         title: 'Animation',
-        body: 'The turtle swim cycle is four frames: neutral, left-stroke, glide, right-stroke. The cycle runs at 8fps to match the underwater feel — **slower than most game animations**. The trash objects have a slow drift to simulate ocean current. The drift direction varies slightly per object so the ocean never looks static.',
+        body: 'The turtle swim cycle is four frames: neutral, left-stroke, glide, right-stroke, running at 8fps. The low frame rate reinforces the underwater physics feel and distinguishes the character from surface-speed game conventions. Trash objects use a per-instance randomised drift vector to simulate ocean current; no two objects move identically, preventing the scene from reading as static.',
         image: F('rJx8qOAaKbF54gKAS46arHJseU.gif'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Animation Frames. Turtle movement cycle, four-frame loop at 8fps.',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Animation frames. Turtle movement cycle, four-frame loop at 8fps.',
       },
       {
         title: 'Gameplay Mechanics',
-        body: 'Built in Godot using C++. The turtle moves with momentum — it keeps moving after the key is released, which makes avoidance feel physical. Trash objects spawn from the right edge at randomised heights and speeds that increase over time. Collision detection uses Godot\'s built-in Area2D nodes. Score increments every second of survival. There is no score threshold. No end screen congratulations. Just a number and the ocean.',
+        body: 'Built in Godot using C++. Movement uses a momentum model: the turtle continues moving after input is released, making avoidance feel physical rather than cursor-like. Trash objects spawn from the right edge at randomised heights and speeds scaled to elapsed survival time. Collision detection uses Godot\'s built-in Area2D nodes. Score increments per second survived. No threshold, no congratulations screen.',
       },
       {
         title: 'Sound',
-        body: 'The soundtrack was composed in Strudel — a live-coding environment for generative music. The melody uses a pentatonic scale over an ocean-ambient drone. **The tempo increases with the trash spawn rate**, so the music and the tension rise together without any explicit trigger. As the game becomes harder, the music becomes more urgent. The player feels it before they notice it.',
+        body: 'The soundtrack was composed in Strudel, a live-coding environment for generative music. A pentatonic melody runs over an ocean-ambient drone. Tempo is directly coupled to the trash spawn rate: as the spawn interval decreases, BPM increases proportionally. Tension escalates in the audio before the player consciously registers it in the game state.',
       },
     ],
 
     meetTheWork: 'Plastic Panic. A game about surviving something that does not stop.',
     finalImages: [
       {
-        src: F('X5bXg2as57rJNkntyg32Ks7VY.mp4'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Gameplay. Trash density increases over time. There is no winning.',
+        src: '/plasticpanic.mov',
+        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Gameplay. Debris density increases over time. There is no winning state.',
         isVideo: true,
-      },
-      {
-        src: F('BxnQlUIzd8upbeqjusD9JCf3QhY.jpg'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Game Over Screen. No explosion. No drama. Just the turtle, stopped.',
       },
     ],
 
@@ -249,153 +251,81 @@ export const projects: Project[] = [
     reflection: [
       {
         title: 'Momentum is a design decision, not a feature',
-        body: 'Too much and the game feels uncontrollable. Too little and it feels sterile. I spent more time tuning movement feel than on any other mechanic — and it was the right call. How a character moves changes what it represents. The turtle needs to feel like something alive, not a cursor.',
+        body: 'Movement tuning took more iteration than any other mechanic. Too much momentum and the game becomes uncontrollable; too little and it reads like a cursor. The turtle needs to feel alive, which required more precision in the physics parameters than expected.',
       },
       {
         title: 'The score is the message',
-        body: 'Survival time as a score metric means the game communicates one thing: you can last, but not forever. A v2 would translate the survival time into a real-world statistic at the game-over screen — not as a reward, but as a fact. "You lasted 47 seconds. That\'s how long it takes 8 million plastic bottles to enter the ocean."',
+        body: 'Survival time as the score metric communicates one thing: you can last, but not forever. A v2 would convert elapsed time to a real-world data point at the game-over screen. "You lasted 47 seconds. That\'s how long it takes 8 million plastic bottles to enter the ocean."',
       },
     ],
   },
 
-  // ── BATIK ────────────────────────────────────────────────────────────────────
-  {
-    slug: 'batik',
-    title: 'ACS Jakarta Batik',
-    subtitle: 'A hand-crafted batik pattern selected from 800+ submissions — now the official uniform for ACS Jakarta.',
-    tags: ['ILLUSTRATION', 'CULTURAL DESIGN', 'TEXTILE'],
-    bg: '#C4956A',
-    heroImage: F('uSZYqdffpgEPmgXRujB1GtCrIPc.png'),
-
-    h1: 'Designing a school uniform from the meaning up, not the pattern down',
-    subtitleParagraph: 'The brief was to design a batik uniform for ACS Jakarta. The real challenge was: how do you make something 1,500 students wear every week feel like it means something? The answer was to start with what batik actually is — a visual encoding system — rather than with what it looks like.',
-    year: '2023',
-    scope: 'Illustration\nCultural Design\nTextile',
-    role: 'Solo. Cultural research, pattern composition, colour development, and fabric specification.',
-    showcaseImages: [
-      F('K4gwJNWnGHo2ZqY3m1oMm03AXI.jpg'),
-      F('NOXLUfLL0wVijF7S7mkCGnNxL4.jpg'),
-    ],
-
-    problemSpaceHeading: 'A uniform worn every day should mean something. Most do not, because nobody started with meaning.',
-    problemSpace: 'School uniforms are worn without thought. They become invisible. The brief asked for a batik uniform — but batik is not a style. It is a form of **visual encoding**, where every motif carries a documented meaning. Designing one without understanding that encoding would produce something that looked like batik, without being it. That distinction mattered to me before I drew a line.',
-
-    conceptHeading: 'Batik is a visual encoding system. That is where the design started.',
-    concept: 'The composition centres on sido asih iconography — six-petaled flowers encoding love and compassion — interlocked with dragon-scale elements representing courage. The pattern was designed to be readable at uniform scale: legible from a distance, detailed up close. Three layers of scale — macro structure, mid-level motif, and fine-line detail — give it depth at every viewing distance.',
-
-    processSections: [
-      {
-        title: 'Research: Javanese Iconography',
-        body: 'Two weeks of reading classical Javanese batik documentation before drawing a single line. The sido asih flower, kawung dragon scales, and diagonal grid structures each carry specific cultural meanings that predate the colonial period. **Using them required understanding what they said, not just how they looked.** This phase produced a reference library of 40+ motifs with documented meanings.',
-        image: F('0s7gvf2J1mCKSUpofh2ZuO0zME.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Initial sketches. Early motif exploration — testing placement, scale, and density relationships.',
-      },
-      {
-        title: 'Composition',
-        body: 'The central challenge was density. Batik patterns need to work at fabric scale, where individual motifs become texture. Too sparse and the uniform reads as plain. Too dense and it reads as noise. The final composition uses three layers of visual scale so the pattern has depth at every viewing distance — whether you\'re across a classroom or close enough to read the threads.',
-        image: F('DcbQlUSeNELrf7gOQcsDryTrjrQ.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Composition development. Testing how motifs tile at uniform scale.',
-      },
-      {
-        title: 'Colour Development',
-        body: 'Three palettes were developed and evaluated for how they would translate onto wax-resist batik fabric dye. Digital colour does not map directly to dye — what reads as warm on screen often pulls orange under fluorescent light on cotton. **The final palette prioritised legibility and fade resistance**: colours that would remain readable after repeated washing across a school year.',
-        image: F('NvlcUpadjfchIlphrvm2dBd9B6Y.png'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Colour testing. Three palette variants evaluated for fabric dye translation.',
-      },
-    ],
-
-    meetTheWork: 'The ACS Jakarta Batik Uniform. Worn by 1,500 students weekly. Selected from 800+ submissions.',
-    finalImages: [
-      {
-        src: F('K4gwJNWnGHo2ZqY3m1oMm03AXI.jpg'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Final Pattern A. The finished uniform design, now official ACS Jakarta school wear.',
-      },
-      {
-        src: F('NOXLUfLL0wVijF7S7mkCGnNxL4.jpg'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Final Pattern B. Detail at fabric scale — showing all three layers of visual density.',
-      },
-    ],
-
-    reflectionHeading: 'What designing for fabric changed about how I think about context.',
-    reflection: [
-      {
-        title: 'Screen design assumes fixed conditions. Fabric does not.',
-        body: 'Fabric is worn in sunlight, fluorescent corridors, and low evening light — and it moves. Designing for those conditions forced me to think about pattern as environment rather than image. A design that works on screen is a starting point, not a result.',
-      },
-      {
-        title: 'Ownership changes what an object means',
-        body: 'A pattern selected by teachers for students is a different object than one students feel some ownership of. I would involve students in the research phase of a v2 — not to co-design, but to understand what they wanted the uniform to say about them. The symbolism already in the pattern could then be explained back to the people who wear it.',
-      },
-    ],
-  },
-
-  // ── COMPACT CR PURIFIER ──────────────────────────────────────────────────────
+  // ── REDESIGNED AIR PURIFIER ──────────────────────────────────────────────────
   {
     slug: 'cr-purifier',
-    title: 'Compact CR Purifier',
-    subtitle: 'A reimagination of the Corsi-Rosenthal box — designed to fit the spaces people actually live in.',
+    title: 'Redesigned Air Purifier',
+    subtitle: 'Compact air purifier redesigned for small-space living. Corner-mounted, tool-free, under £40.',
     tags: ['PRODUCT DESIGN', 'FABRICATION', 'MARKETING'],
     bg: '#D6D0C8',
-    heroImage: F('MTovtjuyQtyaQcX0pOUhLYiDg.jpg'),
+    heroImage: '/cr-purifier-render-nobg.png',
 
-    h1: 'A scaled-down Corsi-Rosenthal box designed for the spaces people actually live in',
-    subtitleParagraph: 'The Corsi-Rosenthal box is one of the most effective DIY air purifiers available — peer-reviewed, cheap to build, and dramatically better than most commercial alternatives. It is also 50cm on each side. This project redesigns it for the spaces where air quality matters most: dorm rooms, studio flats, and shared bedrooms where floor space is not a given.',
+    h1: 'A compact air purifier redesigned for the spaces people actually live in',
+    subtitleParagraph: 'Most air purifiers need 50cm of floor space. This one fits in a corner — two MERV-13 filters in an L-shape, no tools needed, under £40 from a hardware store.',
     year: '2023',
-    scope: 'Product Design\nFabrication',
-    role: 'Solo. Research, design, physical prototyping, and build documentation.',
+    scope: 'Product Design\nFabrication\nBuild Documentation',
+    role: 'Solo. User research, mechanical design, physical prototyping, laser cutting, and go-to-market documentation.',
     showcaseImages: [
-      F('MTovtjuyQtyaQcX0pOUhLYiDg.jpg'),
-      F('dqQB5hZNeH5HPAkMfd0M7A5K9I.jpg'),
+      '/cr-purifier-render-nobg.png',
     ],
 
-    problemSpaceHeading: 'The most effective DIY air purifier is too big for most of the places where air quality actually matters.',
-    problemSpace: 'The standard CR box requires four 20×20-inch filters and a box fan — a 50cm square that projects into the room. For dorm rooms, studio flats, and shared bedrooms, that footprint is prohibitive. An effective solution that people cannot actually use **is not a solution**. The design challenge was: same filtration logic, smaller footprint, no specialist tools.',
+    problemSpaceHeading: 'The most effective air purifier format is too big for the rooms where air quality matters most.',
+    problemSpace: 'The standard four-filter square configuration requires a 50×50cm footprint and projects into the room on all sides. For the average UK student bedroom (under 10sqm) or shared flat, this is a non-starter. The filter-to-fan ratio on that design is well-established: four 20×20-inch MERV-13 faces to a single box fan. The design challenge was reducing that footprint without gutting the filtration logic. The constraint: no specialist tools, no custom components, no ordering online.',
 
     conceptHeading: 'Same filtration logic. Forty percent smaller footprint. No tools required.',
-    concept: 'The compact CR Purifier uses two MERV-13 filters in an L-configuration rather than four in a square, allowing the unit to sit in a corner. The corner becomes part of the design — walls guide airflow to compensate for reduced filter faces. All materials are available at hardware stores. Construction time is under 20 minutes. The instructions fit on one side of A5.',
+    concept: 'Two MERV-13 filters are arranged in an L-configuration rather than a square, reducing the footprint from four filter faces to two. The unit sits in a corner: the two adjacent walls act as passive airflow guides, directing intake air toward both filter faces and partially compensating for the reduced filtration area. CADR (Clean Air Delivery Rate) drops relative to the four-filter format but remains above the threshold for rooms under 20sqm. The fan sits on top facing up, pulling air through both filter faces simultaneously. Build time is under 20 minutes. The instruction set fits on one side of A5.',
 
     processSections: [
       {
-        title: 'Research: Understanding the Original',
-        body: 'Before modifying the CR box, I needed to understand exactly why it works. The standard design uses four filter faces to maximise filtration area relative to fan capacity. Reducing filter faces reduces CADR (Clean Air Delivery Rate). The design question became: **can geometry compensate for reduced filter area?** Corner placement was the answer — two walls become passive airflow guides.',
+        title: 'Research and Geometry Testing',
+        body: 'The first stage was working out whether corner placement could genuinely substitute for the missing filter faces. Two-filter L-configurations reduce total filter area by 50%, which under normal conditions halves CADR. Corner deployment partially recovers this by redirecting ambient airflow: at 90-degree wall junctions, air pressure from room circulation is guided toward both filter faces rather than dissipating. I tested three room configurations to check whether this effect was consistent across different wall materials and room sizes. It was consistent enough to proceed. The design locked in: two filters, corner-only placement, fan on top.',
         image: F('Lg89TpGFsjWu5n4clXjJo1drbM.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Early sketches. Exploring L-configuration and corner placement geometry.',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Sketches to visualize.',
       },
       {
         title: 'Prototyping',
-        body: 'The first prototype used off-the-shelf components: two MERV-13 filters, a 20-inch box fan, and duct tape. Corner placement was tested across three room configurations to evaluate whether wall airflow guidance was consistent. It was. The duct tape join was then replaced with a laser-cut MDF bracket for structural stability.',
+        body: 'First build used two MERV-13 20×20-inch filters, a 20-inch box fan, and duct tape at the join. Functional but not structurally sound for repeated assembly. I moved the join to a laser-cut 6mm MDF bracket, designed with a friction-fit tongue-and-groove that holds both filter faces at exactly 90 degrees without adhesive. The bracket is flat-pack: ships in an envelope, assembles in under two minutes. No tools. No glue.',
         image: F('kuIEK27hBhGsWgpYo9EZzXK2QHM.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Prototype A. First build — duct tape join, corner-deployed configuration.',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Sketches to visualize.',
       },
       {
         title: 'Material Specification',
-        body: 'Every component is available at a hardware store for under £40 in the UK or $45 in the US. No online ordering required. No soldering. No power tools. The only tool required is scissors. This constraint drove the bracket design: the MDF bracket is pre-cut and packaged flat, assembled without adhesive using a friction-fit joint.',
+        body: 'Full bill of materials: two MERV-13 20×20-inch filters (£12–16 each), one 20-inch box fan (£18–24), one laser-cut MDF bracket (£2–4 if self-cut, designed for 6mm sheet with 0.2mm kerf compensation). Total: £32–44 depending on sourcing. All components are stocked at B&Q, Screwfix, or equivalent. The bracket file is designed for a standard 600×400mm laser bed. Assembly requires no tools. Disassembly is full and reversible.',
         image: F('erRmJeaSNj01D1SZLrJ8Y5TXl2E.jpg'),
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Prototype B. Laser-cut MDF bracket replacing duct tape. Friction-fit, no adhesive.',
+        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Prototype A. Laser-cut MDF bracket replacing duct tape. Friction-fit, no adhesive.',
       },
     ],
 
-    meetTheWork: 'The Compact CR Purifier. Corner-deployed. Under 20 minutes to build. No tools. Under £40.',
+    meetTheWork: 'Compact. Corner-deployed. Under 20 minutes to build. No tools. Under £40.',
     finalImages: [
       {
-        src: F('MTovtjuyQtyaQcX0pOUhLYiDg.jpg'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Final Prototype A. Fan mounted on top, two MERV-13 filter faces on sides.',
+        src: '/FRONT PURIFIER.jpg',
+        caption: '',
       },
       {
         src: F('dqQB5hZNeH5HPAkMfd0M7A5K9I.jpg'),
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Final Prototype B. Corner deployment — walls guide airflow to both filter faces.',
+        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ Final piece.',
       },
     ],
 
-    reflectionHeading: 'What accessibility actually means when the object is hardware.',
+    reflectionHeading: 'What I would do differently.',
     reflection: [
       {
-        title: 'The barrier was confidence, not cost',
-        body: 'I assumed "accessible" meant cheap. Testing with people who had never built anything showed that the real barrier was confidence — "I could break it", "I\'m not sure where this goes." The instructions matter as much as the design. A v2 would include a one-page visual build guide with no text — just photographs of each step.',
+        title: 'The instructions needed more work than the object',
+        body: 'I spent most of the project on the physical design. But when I tested it with people who had never built anything before, the object itself was fine. The instructions weren\'t. "Friction-fit joint" means nothing if you\'ve never assembled flat-pack before. A v2 would photograph every step at 1:1 scale, no text, and run it past someone who\'d never seen the product.',
       },
       {
-        title: 'The L-configuration needs independent verification',
-        body: 'The geometry works in theory and in informal testing. But it has not been independently measured for CADR against a standard CR box using a particle counter in a sealed room. Until that comparison exists, the claim that corner placement compensates for reduced filter area is an educated estimate, not a measured result.',
+        title: 'The CADR claim needs a particle counter',
+        body: 'The corner-placement airflow guidance argument is geometrically sound and consistent in informal testing across three room configurations. But "consistent in informal testing" is not a measured CADR figure. A rigorous v2 would run the unit against a calibrated particle counter in a sealed room and publish the numbers. Until then, the efficiency claim is directionally correct but not independently verified.',
       },
     ],
   },

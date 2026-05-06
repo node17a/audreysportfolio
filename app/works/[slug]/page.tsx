@@ -2,9 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import { projects, getProject } from '@/lib/projects'
-
-const sfPro = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
-const mono  = '"SF Mono", ui-monospace, "Cascadia Code", monospace'
+import { sfPro, mono } from '@/lib/fonts'
 
 export function generateStaticParams() {
   return projects.map(p => ({ slug: p.slug }))
@@ -28,7 +26,7 @@ function Label({ text }: { text: string }) {
     <p style={{
       fontFamily: mono,
       fontSize: '0.55rem',
-      color: '#ccc',
+      color: '#888',
       letterSpacing: '0.14em',
       textTransform: 'uppercase',
       margin: '0 0 6px',
@@ -265,7 +263,7 @@ export default function CaseStudyPage({ params }: Props) {
                       />
                     </div>
                     {section.imageCaption && (
-                      <figcaption style={{ fontFamily: mono, fontSize: '0.66rem', color: '#bbb', letterSpacing: '0.04em', marginTop: 12, lineHeight: 1.5 }}>
+                      <figcaption style={{ fontFamily: mono, fontSize: '0.66rem', color: '#888', letterSpacing: '0.04em', marginTop: 12, lineHeight: 1.5 }}>
                         {section.imageCaption}
                       </figcaption>
                     )}
@@ -281,8 +279,24 @@ export default function CaseStudyPage({ params }: Props) {
                       />
                     </div>
                     {section.imageCaption && (
-                      <figcaption style={{ fontFamily: mono, fontSize: '0.66rem', color: '#bbb', letterSpacing: '0.04em', marginTop: 12, lineHeight: 1.5 }}>
+                      <figcaption style={{ fontFamily: mono, fontSize: '0.66rem', color: '#888', letterSpacing: '0.04em', marginTop: 12, lineHeight: 1.5 }}>
                         {section.imageCaption}
+                      </figcaption>
+                    )}
+                  </figure>
+                )}
+                {section.image2 && (
+                  <figure style={{ margin: '24px 0 0' }}>
+                    <div style={{ borderRadius: 14, overflow: 'hidden' }}>
+                      <img
+                        src={section.image2}
+                        alt={section.imageCaption2 ?? section.title}
+                        style={{ width: '100%', display: 'block', objectFit: 'cover' }}
+                      />
+                    </div>
+                    {section.imageCaption2 && (
+                      <figcaption style={{ fontFamily: mono, fontSize: '0.66rem', color: '#888', letterSpacing: '0.04em', marginTop: 12, lineHeight: 1.5 }}>
+                        {section.imageCaption2}
                       </figcaption>
                     )}
                   </figure>
@@ -322,7 +336,7 @@ export default function CaseStudyPage({ params }: Props) {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
               {project.finalImages.map((img, i) => (
                 <figure key={i} style={{ margin: 0 }}>
-                  <div style={{ borderRadius: 14, overflow: 'hidden' }}>
+                  <div style={{ borderRadius: 14, overflow: 'hidden', aspectRatio: '16/9' }}>
                     {img.isVideo ? (
                       <video
                         src={img.src}
@@ -330,7 +344,7 @@ export default function CaseStudyPage({ params }: Props) {
                         loop
                         muted
                         playsInline
-                        style={{ width: '100%', display: 'block' }}
+                        style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
                       />
                     ) : (
                       <img
@@ -341,7 +355,7 @@ export default function CaseStudyPage({ params }: Props) {
                     )}
                   </div>
                   {img.caption && (
-                    <figcaption style={{ fontFamily: mono, fontSize: '0.66rem', color: '#bbb', letterSpacing: '0.04em', marginTop: 12, lineHeight: 1.5 }}>
+                    <figcaption style={{ fontFamily: mono, fontSize: '0.66rem', color: '#888', letterSpacing: '0.04em', marginTop: 12, lineHeight: 1.5 }}>
                       {img.caption}
                     </figcaption>
                   )}
@@ -392,6 +406,32 @@ export default function CaseStudyPage({ params }: Props) {
                 </div>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* ── SOURCE CODE ── */}
+        {project.sourceCode && (
+          <div style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
+            <Label text="SOURCE CODE" />
+            <a
+              href={project.sourceCode.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: sfPro,
+                fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
+                fontWeight: 400,
+                color: '#111',
+                letterSpacing: '-0.02em',
+                lineHeight: 1.3,
+                textDecoration: 'none',
+                borderBottom: '1px solid #e0e0e0',
+                paddingBottom: 2,
+                display: 'inline-block',
+              }}
+            >
+              {project.sourceCode.label} ↗
+            </a>
           </div>
         )}
 

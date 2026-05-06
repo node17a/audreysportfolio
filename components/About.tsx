@@ -1,9 +1,7 @@
 'use client'
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-
-const sfPro = '-apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif'
-const mono  = '"SF Mono", ui-monospace, "Cascadia Code", monospace'
+import { sfPro, mono } from '@/lib/fonts'
 
 function PhotoVideoCard() {
   const [hovered, setHovered] = useState(false)
