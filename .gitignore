@@ -37,6 +37,3 @@ next-env.d.ts
 
 # superpowers plugin cache
 .superpowers/
-
-# large video files (too big for GitHub — host on CDN)
-public/FLOWERBLOOM.mov
