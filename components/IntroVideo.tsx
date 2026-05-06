@@ -34,7 +34,7 @@ export default function IntroVideo() {
     >
       <video
         ref={videoRef}
-        src="/Intro_video.mp4"
+        src="/Intro_Video.mp4"
         autoPlay
         muted
         playsInline
