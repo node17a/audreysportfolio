@@ -111,7 +111,7 @@ export default function CaseStudyPage({ params }: Props) {
                 alt={project.title}
                 style={{
                   width: '100%', display: 'block', maxHeight: 580,
-                  objectFit: project.showcaseImages[0].endsWith('.png') ? 'contain' : 'cover',
+                  objectFit: project.showcaseObjectFit ?? (project.showcaseImages[0].endsWith('.png') ? 'contain' : 'cover'),
                   ...(project.showcaseZoom ? {
                     transform: `scale(${project.showcaseZoom})`,
                     transformOrigin: project.showcaseOrigin ?? 'center',

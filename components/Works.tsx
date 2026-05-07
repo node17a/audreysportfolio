@@ -26,7 +26,7 @@ const displayProjects = DISPLAY_ORDER
 
 type DisplayProject = typeof displayProjects[number]
 
-function ProjectCard({ project, index }: { project: DisplayProject; index: number }) {
+function ProjectCard({ project, index, isMobile }: { project: DisplayProject; index: number; isMobile: boolean }) {
   const [hovered, setHovered] = useState(false)
   const hasVideo = !!project.video && !!project.videoHover
   const vid1Ref = useRef<HTMLVideoElement>(null)
@@ -61,13 +61,14 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
           borderRadius: 16,
           padding: 16,
           display: 'flex',
-          flexDirection: 'row',
-          gap: 24,
-          minHeight: 300,
+          flexDirection: isMobile ? 'column' : 'row',
+          gap: 16,
+          minHeight: isMobile ? 'auto' : 300,
         }}
       >
         <div style={{
-          width: '55%',
+          width: isMobile ? '100%' : '55%',
+          aspectRatio: isMobile ? '4/3' : undefined,
           borderRadius: 10,
           overflow: 'hidden',
           flexShrink: 0,
@@ -84,8 +85,9 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
           flex: 1,
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between',
-          padding: '6px 4px',
+          justifyContent: isMobile ? 'flex-start' : 'space-between',
+          gap: isMobile ? 12 : 0,
+          padding: isMobile ? '4px 2px 6px' : '6px 4px',
         }}>
           <div>
             <p style={{
@@ -324,10 +326,10 @@ export default function Works() {
                   }}
                   data-cursor="explore"
                 >
-                  <ProjectCard project={p} index={i} />
+                  <ProjectCard project={p} index={i} isMobile={isMobile} />
                 </Link>
               ) : (
-                <ProjectCard key={p.id} project={p} index={i} />
+                <ProjectCard key={p.id} project={p} index={i} isMobile={isMobile} />
               )
             )}
           </div>
