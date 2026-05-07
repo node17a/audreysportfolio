@@ -90,7 +90,7 @@ export default function CustomCursor() {
         translateX: '-50%',
         translateY: '-50%',
         pointerEvents: 'none',
-        zIndex: 99999,
+        zIndex: 9999999,
         willChange: 'transform, width, height',
         width: w,
         height: h,

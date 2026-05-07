@@ -112,6 +112,10 @@ export default function CaseStudyPage({ params }: Props) {
                 style={{
                   width: '100%', display: 'block', maxHeight: 580,
                   objectFit: project.showcaseImages[0].endsWith('.png') ? 'contain' : 'cover',
+                  ...(project.showcaseZoom ? {
+                    transform: `scale(${project.showcaseZoom})`,
+                    transformOrigin: project.showcaseOrigin ?? 'center',
+                  } : {}),
                 }}
               />
             </div>
@@ -175,7 +179,7 @@ export default function CaseStudyPage({ params }: Props) {
 
         {/* ── PROBLEM SPACE ── */}
         <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
-          <Label text="PROBLEM SPACE" />
+          <Label text={project.sectionLabels?.problemSpace ?? 'PROBLEM SPACE'} />
           <h2 style={{
             fontFamily: sfPro,
             fontWeight: 400,
@@ -201,7 +205,7 @@ export default function CaseStudyPage({ params }: Props) {
 
         {/* ── CONCEPT ── */}
         <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
-          <Label text="CONCEPT" />
+          <Label text={project.sectionLabels?.concept ?? 'CONCEPT'} />
           <h2 style={{
             fontFamily: sfPro,
             fontWeight: 400,
@@ -227,7 +231,7 @@ export default function CaseStudyPage({ params }: Props) {
 
         {/* ── PROCESS ── */}
         <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
-          <Label text="PROCESS" />
+          <Label text={project.sectionLabels?.process ?? 'PROCESS'} />
           <div style={{ marginTop: 40, display: 'flex', flexDirection: 'column', gap: 64 }}>
             {project.processSections.map((section, i) => (
               <div key={i}>
@@ -306,7 +310,7 @@ export default function CaseStudyPage({ params }: Props) {
         {/* ── FINAL DESIGN ── */}
         {project.finalImages.length > 0 && (
           <div id="final" className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
-            <Label text="FINAL DESIGN" />
+            <Label text={project.sectionLabels?.finalDesign ?? 'FINAL DESIGN'} />
             <h2 style={{
               fontFamily: sfPro,
               fontWeight: 400,
@@ -361,7 +365,7 @@ export default function CaseStudyPage({ params }: Props) {
         {/* ── REFLECTION ── */}
         {project.reflection.length > 0 && (
           <div className="cs-pad" style={{ maxWidth: 820, margin: '0 auto', padding: '0 48px 96px' }}>
-            <Label text="REFLECTION" />
+            <Label text={project.sectionLabels?.reflection ?? 'REFLECTION'} />
             <h2 style={{
               fontFamily: sfPro,
               fontWeight: 400,

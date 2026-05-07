@@ -6,8 +6,11 @@ import { projects as realProjects } from '@/lib/projects'
 import { sfPro, mono } from '@/lib/fonts'
 import { useIsMobile } from '@/lib/useIsMobile'
 
-const displayProjects = realProjects
-  .filter(p => p.slug !== 'batik')
+const DISPLAY_ORDER = ['impermanence', 'memory-distortion-box', 'plastic-panic', 'cr-purifier', 'vichy-regen']
+
+const displayProjects = DISPLAY_ORDER
+  .map(slug => realProjects.find(p => p.slug === slug))
+  .filter((p): p is NonNullable<typeof p> => !!p)
   .map(p => ({
     id: p.slug,
     slug: p.slug,
@@ -16,6 +19,7 @@ const displayProjects = realProjects
     tags: p.tags,
     image: p.heroImage as string | null,
     aspectRatio: '4/3' as const,
+    featured: !!p.featured,
     video:      p.slug === 'plastic-panic' ? '/imac_composite.mp4'  : undefined as string | undefined,
     videoHover: p.slug === 'plastic-panic' ? '/imac_composite2.mp4' : undefined as string | undefined,
   }))
@@ -42,6 +46,106 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
     const c2 = setup(vid2Ref.current)
     return () => { c1?.(); c2?.() }
   }, [])
+
+  if (project.featured) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-40px' }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          cursor: 'pointer',
+          background: '#F5F5F3',
+          border: '1px solid #E0E0DC',
+          borderRadius: 16,
+          padding: 16,
+          display: 'flex',
+          flexDirection: 'row',
+          gap: 24,
+          minHeight: 300,
+        }}
+      >
+        <div style={{
+          width: '55%',
+          borderRadius: 10,
+          overflow: 'hidden',
+          flexShrink: 0,
+        }}>
+          {project.image && (
+            <img
+              src={project.image}
+              alt={project.title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
+          )}
+        </div>
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '6px 4px',
+        }}>
+          <div>
+            <p style={{
+              fontFamily: mono,
+              fontSize: '0.52rem',
+              color: '#bbb',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              margin: '0 0 8px',
+            }}>
+              [CASE STUDY]
+            </p>
+            <p style={{
+              fontFamily: mono,
+              fontSize: '0.56rem',
+              color: '#aaa',
+              letterSpacing: '0.06em',
+              margin: '0 0 16px',
+              textTransform: 'uppercase',
+            }}>
+              [{project.tags.join(', ')}]
+            </p>
+            <h2 style={{
+              fontFamily: sfPro,
+              fontWeight: 500,
+              fontSize: '1.2rem',
+              color: '#111',
+              letterSpacing: '-0.015em',
+              margin: '0 0 12px',
+              lineHeight: 1.25,
+            }}>
+              {project.title}
+            </h2>
+            {project.description && (
+              <p style={{
+                fontFamily: sfPro,
+                fontSize: '0.8rem',
+                color: '#999',
+                lineHeight: 1.6,
+                fontWeight: 400,
+                margin: 0,
+              }}>
+                {project.description}
+              </p>
+            )}
+          </div>
+          <p style={{
+            fontFamily: mono,
+            fontSize: '0.54rem',
+            color: '#ccc',
+            letterSpacing: '0.08em',
+            margin: 0,
+            textTransform: 'uppercase',
+          }}>
+            View Case Study →
+          </p>
+        </div>
+      </motion.div>
+    )
+  }
 
   return (
     <motion.div
@@ -210,7 +314,16 @@ export default function Works() {
           <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px 32px' }}>
             {displayProjects.map((p, i) =>
               p.slug ? (
-                <Link key={p.id} href={`/works/${p.slug}`} style={{ textDecoration: 'none', display: 'block' }} data-cursor="explore">
+                <Link
+                  key={p.id}
+                  href={`/works/${p.slug}`}
+                  style={{
+                    textDecoration: 'none',
+                    display: 'block',
+                    ...(p.featured && !isMobile ? { gridColumn: '1 / -1' } : {}),
+                  }}
+                  data-cursor="explore"
+                >
                   <ProjectCard project={p} index={i} />
                 </Link>
               ) : (
