@@ -29,18 +29,18 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
   const vid2Ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    const forcePlay = (v: HTMLVideoElement | null) => {
+    const setup = (v: HTMLVideoElement | null) => {
       if (!v) return
       v.muted = true
-      if (v.readyState >= 3) {
-        v.play().catch(() => {})
-      } else {
-        v.addEventListener('canplay', () => v.play().catch(() => {}), { once: true })
-        setTimeout(() => { if (v.paused) v.play().catch(() => {}) }, 300)
-      }
+      v.setAttribute('muted', '')
+      const play = () => v.play().catch(() => {})
+      play()
+      v.addEventListener('canplay', play, { once: true })
+      return () => v.removeEventListener('canplay', play)
     }
-    forcePlay(vid1Ref.current)
-    forcePlay(vid2Ref.current)
+    const c1 = setup(vid1Ref.current)
+    const c2 = setup(vid2Ref.current)
+    return () => { c1?.(); c2?.() }
   }, [])
 
   return (
