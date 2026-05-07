@@ -7,34 +7,33 @@ interface Props {
   className?: string
 }
 
+function forcePlay(v: HTMLVideoElement) {
+  v.muted = true
+  if (v.readyState >= 3) {
+    v.play().catch(() => {})
+    return
+  }
+  // Not buffered yet — wait for canplay, then play exactly once
+  v.addEventListener('canplay', () => v.play().catch(() => {}), { once: true })
+  // Fallback: retry after a short delay in case canplay already fired
+  setTimeout(() => { if (v.paused) v.play().catch(() => {}) }, 300)
+}
+
 export default function AutoPlayVideo({ src, style, className }: Props) {
   const ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const v = ref.current
     if (!v) return
+    forcePlay(v)
 
-    v.muted = true
-
-    const tryPlay = () => { v.play().catch(() => {}) }
-
-    // Attempt immediately
-    tryPlay()
-
-    // Retry once the video has buffered enough
-    v.addEventListener('canplay', tryPlay)
-
-    // Retry whenever it scrolls into view (covers off-screen / lazy-rendered cases)
+    // Re-trigger when it scrolls into view (off-screen elements)
     const io = new IntersectionObserver(
-      (entries) => { if (entries[0].isIntersecting) tryPlay() },
+      (entries) => { if (entries[0].isIntersecting && v.paused) forcePlay(v) },
       { threshold: 0.1 }
     )
     io.observe(v)
-
-    return () => {
-      v.removeEventListener('canplay', tryPlay)
-      io.disconnect()
-    }
+    return () => io.disconnect()
   }, [])
 
   return (

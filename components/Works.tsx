@@ -29,22 +29,18 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
   const vid2Ref = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
-    const tryPlay = (v: HTMLVideoElement | null) => {
+    const forcePlay = (v: HTMLVideoElement | null) => {
       if (!v) return
       v.muted = true
-      const play = () => v.play().catch(() => {})
-      play()
-      v.addEventListener('canplay', play)
-      const io = new IntersectionObserver(
-        (entries) => { if (entries[0].isIntersecting) play() },
-        { threshold: 0.1 }
-      )
-      io.observe(v)
-      return () => { v.removeEventListener('canplay', play); io.disconnect() }
+      if (v.readyState >= 3) {
+        v.play().catch(() => {})
+      } else {
+        v.addEventListener('canplay', () => v.play().catch(() => {}), { once: true })
+        setTimeout(() => { if (v.paused) v.play().catch(() => {}) }, 300)
+      }
     }
-    const c1 = tryPlay(vid1Ref.current)
-    const c2 = tryPlay(vid2Ref.current)
-    return () => { c1?.(); c2?.() }
+    forcePlay(vid1Ref.current)
+    forcePlay(vid2Ref.current)
   }, [])
 
   return (

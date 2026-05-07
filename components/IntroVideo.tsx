@@ -10,10 +10,12 @@ export default function IntroVideo() {
     const v = videoRef.current
     if (!v) return
     v.muted = true
-    const tryPlay = () => v.play().catch(() => {})
-    tryPlay()
-    v.addEventListener('canplay', tryPlay)
-    return () => v.removeEventListener('canplay', tryPlay)
+    if (v.readyState >= 3) {
+      v.play().catch(() => {})
+    } else {
+      v.addEventListener('canplay', () => v.play().catch(() => {}), { once: true })
+      setTimeout(() => { if (v.paused) v.play().catch(() => {}) }, 300)
+    }
   }, [])
 
   const dismiss = () => {
