@@ -46,10 +46,6 @@ export type Project = {
   reflectionHeading: string
   reflection: ReflectionItem[]
   sourceCode?: { url: string; label: string }
-  featured?: boolean
-  showcaseZoom?: number
-  showcaseOrigin?: string
-  showcaseObjectFit?: 'cover' | 'contain'
   sectionLabels?: {
     problemSpace?: string
     concept?: string
@@ -341,89 +337,6 @@ export const projects: Project[] = [
     ],
   },
 
-  // ── VICHY RE:GEN ─────────────────────────────────────────────────────────────
-  {
-    slug: 'vichy-regen',
-    title: 're:GEN',
-    subtitle: 'A skincare education strategy that turns beauty advisors into genuine supplement advocates. Event design, LMS modules, and objection-handling for a new product category.',
-    tags: ['MARKETING STRATEGY', 'EDUCATION DESIGN'],
-    bg: '#3D0808',
-    heroImage: '/vichy-hero.png',
-
-    h1: "A strategy to close the knowledge, trust, and infrastructure gaps for Vichy's first supplement in 90 years",
-    subtitleParagraph: "re:GEN is a speculative education strategy for the launch of VICHY Liftactiv Collagen Supplements, the brand's first ingestible product in nine decades. The brief: convert beauty advisors across key UK retail partners into confident supplement advocates, in a single morning.",
-    year: '2025',
-    scope: 'Marketing Strategy\nEducation Design\nEvent Design',
-    role: 'Solo. Strategy, concept development, event design, and LMS module design. Interfaces prototyped in Figma Make and Nano Banana Pro.',
-    showcaseImages: ['/vichy-hero.png'],
-    showcaseObjectFit: 'cover',
-    featured: true,
-
-    problemSpaceHeading: 'Three gaps. One launch window. Zero existing infrastructure.',
-    problemSpace: "Vichy's first supplement launch in 90 years arrived without the infrastructure to sell it. Skincare advisors had never sold an ingestible: no language for absorption, no confidence around ingredients, no category reference. Nearly half of consumers are sceptical of beauty supplements, and doubt is contagious when the advisor can't neutralise it. The deeper problem was structural: **Vichy's Pharma Academy was built for pharmacy professionals, not the retail network**, and no training for ingestible beauty existed in the UK market. The brief required building knowledge without overwhelming, trust without overclaiming, and reaching advisors the current infrastructure couldn't.",
-
-    conceptHeading: 're:GEN. Feel the Gen.',
-    concept: "A one-morning experience built on one insight: a fact told is forgotten, a fact felt is kept. re:GEN structures three outcomes (Educate, Equip, Advocate) across a 3-hour event with pre- and post-event digital learning. Two sessions, 40-50 advisors each. Location: a wellness studio, not a conference room, because environment primes behaviour.",
-
-    processSections: [
-      {
-        title: 'The Gen Bowl',
-        body: 'Advisors arrive to a styled yogurt bowl: orange slices, almonds, pumpkin seeds, dark chocolate. Each ingredient maps directly to an active in the supplement: Vitamin C (80mg), Vitamin E (15mg), Zinc (5mg), Copper (150µg). The food IS the lesson. Embodied learning encodes facts differently: when you taste an ingredient, it becomes a reference point, not a number.',
-        image: '/vichy-gen-bowl.jpg',
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Each quadrant of the bowl maps to one active in the pill.',
-      },
-      {
-        title: 'Building Confidence at the Counter',
-        body: '**Dermatologist Q&A**: anonymous question cards, answered live in plain language. Only a clinician can address safety concerns with authority. **The Sell Station**: advisors role-play as customer types for 90 seconds each, practising key selling points until the language feels natural, not rehearsed. **Leave Feeling the GEN**: every advisor receives the GENesis Lite Kit: a 7-day supplement supply, serum sample, and script card. The education continues every morning they take the capsule.',
-        image: '/vichy-journey.jpg',
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Confidence stations 02–04: dermatologist Q&A, sell station, take-home kit.',
-      },
-      {
-        title: "Online Learning: Let's GENup!",
-        body: "**Pre-event LMS module. 5 minutes. Phone-completable.** Sent one week before, covering Product Heritage and Science, the Components, and a Recap Quiz. True/False questions are used deliberately: active recall improves retention more than passive reading. Completion tracked via LMS report. Interface designed in Figma Make and Nano Banana Pro to meet advisors where they already are.",
-        image: '/vichy-lms1.jpg',
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Sample LMS UI — quiz section with instant incorrect-answer feedback.',
-      },
-      {
-        title: 'Online Learning: Handle It the GENius Way!',
-        body: '**Post-event video series. Three 90-second peer-filmed videos, weekly.** Each tackles a real counter objection: "I\'ve tried collagen before," "Why a pill over a serum?", "How long until results?" Peer-filmed by design: credibility is built by relatability, not authority. Key vocabulary highlighted on-screen. Community channel for real-time sharing. All videos captioned.',
-        image: '/vichy-lms2.jpg',
-        imageCaption: '°·⸜(｡˃ ᵕ ˂ )⸝ Handle It series — mobile LMS UI and objection-handling video format.',
-      },
-    ],
-
-    meetTheWork: 're:GEN closes three gaps (knowledge, trust, infrastructure) in one morning. Every advisor leaves with a script in their head and a capsule in their bag.',
-    finalImages: [
-      {
-        src: '/vichy-regen-logo.jpg',
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ re:GEN. The programme identity.',
-      },
-      {
-        src: '/vichy-thankyou.jpg',
-        caption: '°·⸜(｡˃ ᵕ ˂ )⸝ VICHY Liftactiv Collagen Supplement. 10 years in the making.',
-      },
-    ],
-
-    reflectionHeading: 'What this taught me about designing for behaviour change, not just knowledge transfer.',
-    reflection: [
-      {
-        title: 'Constraint was a creative brief in disguise',
-        body: "Working within tight parameters forced a clearer answer to the same question at every turn: what actually changes someone's behaviour? The Gen Bowl exists because it was more memorable than a lecture and more immersive than a slide deck. Constraint collapsed the distance between insight and execution.",
-      },
-      {
-        title: 'Peer-filmed content closes the credibility gap faster than brand-produced content',
-        body: "The Handle It series is peer-filmed deliberately. An advisor watching a brand-produced objection-handling video knows they're being managed. Watching a colleague do it naturalistically removes that distance. For v2, I'd A/B test peer-filmed versus brand-produced format on the same objection, measuring retention and confidence at the counter rather than just completion rates.",
-      },
-    ],
-
-    sectionLabels: {
-      problemSpace: 'THE BRIEF',
-      concept: 'THE STRATEGY',
-      process: 'THE EXPERIENCE',
-      finalDesign: 'THE DELIVERABLE',
-      reflection: 'WHAT I LEARNED',
-    },
-  },
 ]
 
 export function getProject(slug: string): Project | undefined {
