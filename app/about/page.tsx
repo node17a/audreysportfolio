@@ -96,6 +96,27 @@ const education = {
   subroleDesc: 'Manage all marketing materials for UCL East exhibitions — concept through to printed posters displayed on-site.',
 }
 
+const awards: { title: string; issuer: string; date: string; bullets: string[] }[] = [
+  {
+    title: 'Winner, Canva AI Hackathon 2.0',
+    issuer: 'Canva UK',
+    date: 'May 2026',
+    bullets: [
+      'Built and shipped Link! — a mobile-first digital namecard for student networking using Canva Code in under 2 hours. Designed full front-end, animations and mockups; pitched live at Canva HQ, London.',
+      'Won first place among industry professionals as the only university student in attendance.',
+    ],
+  },
+  {
+    title: 'Silver Medalist, Indonesia\'s National Science Enterprise Challenge (INASEC)',
+    issuer: 'INASEC',
+    date: 'Mar 2024',
+    bullets: [
+      'Co-created a full business plan for BOOMBLOOM, an algae-based bioplastic packaging company, awarded silver among 104 competing teams.',
+      'Produced market research, financial statements, and scientific data presentations for a national-level competition.',
+    ],
+  },
+]
+
 const experiences: {
   company: string
   role: string
@@ -105,6 +126,16 @@ const experiences: {
   subroleDesc?: string
   bullets: string[]
 }[] = [
+  {
+    company: 'Canva',
+    role: 'GenC Ambassador',
+    date: 'May 2026 – Present',
+    location: 'London, UK',
+    bullets: [
+      'Selected by Canva UK to represent the brand as a GenC Ambassador — part of a cohort of 50 in the UK — hosting live workshops at Canva\'s London HQ for student designers and creators.',
+      'Collaborate with a global network of GenC Ambassadors to champion design education and AI-powered creative workflows across university communities.',
+    ],
+  },
   {
     company: 'Maje Paris',
     role: 'Sales Assistant',
@@ -430,6 +461,49 @@ export default function AboutPage() {
                   </div>
                 ))}
               </div>
+            </div>
+          </motion.div>
+
+          {/* ── Awards ── */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+            style={{ marginTop: 80, paddingTop: 64, borderTop: '1px solid #E0E0DC' }}
+          >
+            <p style={{ fontFamily: mono, fontSize: '0.58rem', color: '#C0B0D8', letterSpacing: '0.12em', margin: '0 0 48px' }}>
+              ˚ ⊹ [awards] ⊹ ˚
+            </p>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+              {awards.map((award, i) => (
+                <div
+                  key={i}
+                  style={{
+                    padding: '18px 22px',
+                    background: 'rgba(192, 176, 216, 0.07)',
+                    borderRadius: 12,
+                    border: '1px solid rgba(192, 176, 216, 0.22)',
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16, flexWrap: 'wrap', marginBottom: 10 }}>
+                    <p style={{ fontFamily: sfPro, fontWeight: 500, fontSize: '0.95rem', color: '#111', margin: 0, letterSpacing: '-0.01em' }}>
+                      {award.title}
+                    </p>
+                    <p style={{ fontFamily: mono, fontSize: '0.6rem', color: '#888', letterSpacing: '0.04em', margin: 0, whiteSpace: 'nowrap' }}>
+                      {award.issuer} · {award.date}
+                    </p>
+                  </div>
+                  <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 6 }}>
+                    {award.bullets.map((b, j) => (
+                      <li key={j} style={{ display: 'flex', gap: 10, alignItems: 'baseline' }}>
+                        <span style={{ fontFamily: mono, fontSize: '0.55rem', color: '#999', flexShrink: 0 }}>–</span>
+                        <span style={{ fontFamily: sfPro, fontWeight: 300, fontSize: '0.88rem', color: '#444', lineHeight: 1.6 }}>{b}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </motion.div>
 
