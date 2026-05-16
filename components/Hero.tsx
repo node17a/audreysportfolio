@@ -112,7 +112,7 @@ export default function Hero() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
                 <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Student Ambassador @</span>
-                <BrandChip src="/canva.svg" alt="Canva" width={32} height={32} bg="transparent" />
+                <img src="/canva.svg" alt="Canva" style={{ height: 56, width: 56, objectFit: 'contain', display: 'block' }} />
               </a>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Currently @</span>
