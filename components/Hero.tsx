@@ -111,6 +111,10 @@ export default function Hero() {
             {/* Logo stickers */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Student Ambassador @</span>
+                <BrandChip src="/canva.svg" alt="Canva" width={22} bg="transparent" />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Currently @</span>
                 <BrandChip src="/maje2.png" alt="Maje" width={64} bg="#f5f5f5" />
               </div>
