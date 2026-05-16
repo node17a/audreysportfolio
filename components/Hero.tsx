@@ -6,10 +6,10 @@ import { useIsMobile } from '@/lib/useIsMobile'
 
 const SleepingModel = dynamic(() => import('./SleepingModel'), { ssr: false })
 
-function BrandChip({ src, alt, width = 52, bg = '#f0f0f0' }: { src: string; alt: string; width?: number; bg?: string }) {
+function BrandChip({ src, alt, width = 52, bg = '#f0f0f0', height = 18 }: { src: string; alt: string; width?: number; bg?: string; height?: number }) {
   return (
     <span style={{ display: 'inline-flex', alignItems: 'center', verticalAlign: 'middle', background: bg, borderRadius: 6, padding: '2px 8px', border: '1px solid rgba(0,0,0,0.07)', margin: '0 3px', position: 'relative', top: '-1px' }}>
-      <img src={src} alt={alt} style={{ height: 18, width: 'auto', maxWidth: width, objectFit: 'contain', display: 'block' }} />
+      <img src={src} alt={alt} style={{ height, width: 'auto', maxWidth: width, objectFit: 'contain', display: 'block' }} />
     </span>
   )
 }
@@ -112,7 +112,7 @@ export default function Hero() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
                 <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Student Ambassador @</span>
-                <BrandChip src="/canva.svg" alt="Canva" width={22} bg="transparent" />
+                <BrandChip src="/canva.svg" alt="Canva" width={32} height={32} bg="transparent" />
               </a>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Currently @</span>
