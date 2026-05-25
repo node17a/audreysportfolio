@@ -6,7 +6,7 @@ import { projects as realProjects } from '@/lib/projects'
 import { sfPro, mono } from '@/lib/fonts'
 import { useIsMobile } from '@/lib/useIsMobile'
 
-const displayProjects = realProjects
+const baseProjects = realProjects
   .filter(p => p.slug !== 'batik')
   .map(p => ({
     id: p.slug,
@@ -18,7 +18,28 @@ const displayProjects = realProjects
     aspectRatio: '4/3' as const,
     video:      p.slug === 'plastic-panic' ? '/imac_composite.mp4'  : undefined as string | undefined,
     videoHover: p.slug === 'plastic-panic' ? '/imac_composite2.mp4' : undefined as string | undefined,
+    comingSoon: false,
   }))
+
+const driftCard = {
+  id: 'drift-ai',
+  slug: '',
+  title: 'drift.ai',
+  description: 'A marketing agentic AI built to scrape web data more efficiently from niche websites.',
+  tags: ['AI', 'MARKETING TECH'],
+  image: '/driftai.jpg' as string | null,
+  aspectRatio: '4/3' as const,
+  video: undefined as string | undefined,
+  videoHover: undefined as string | undefined,
+  comingSoon: true,
+}
+
+// Insert drift.ai between Plastic Panic (index 2) and CR Purifier (index 3)
+const displayProjects = [
+  ...baseProjects.slice(0, 3),
+  driftCard,
+  ...baseProjects.slice(3),
+]
 
 type DisplayProject = typeof displayProjects[number]
 
@@ -52,15 +73,32 @@ function ProjectCard({ project, index }: { project: DisplayProject; index: numbe
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        cursor: project.slug ? 'pointer' : 'default',
+        cursor: project.comingSoon ? 'default' : project.slug ? 'pointer' : 'default',
         background: '#F5F5F3',
         border: '1px solid #E0E0DC',
         borderRadius: 16,
         padding: 16,
         display: 'flex',
         flexDirection: 'column',
+        position: 'relative',
       }}
     >
+      {/* Coming soon overlay */}
+      {project.comingSoon && hovered && (
+        <div style={{
+          position: 'absolute', inset: 0, zIndex: 10,
+          background: 'rgba(245,245,243,0.88)',
+          backdropFilter: 'blur(6px)',
+          WebkitBackdropFilter: 'blur(6px)',
+          borderRadius: 16,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <span style={{ fontFamily: mono, fontSize: '0.65rem', color: '#999', letterSpacing: '0.1em' }}>
+            coming soon!
+          </span>
+        </div>
+      )}
+
       {/* Tag */}
       <p style={{
         fontFamily: mono,
