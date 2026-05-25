@@ -43,7 +43,7 @@ const cards: {
     type: 'video',
     src: '/FLOWERBLOOM.mov',
     bg: '#0d0d0d',
-    caption: 'Flower-based generative visuals — coded in p5.js',
+    caption: 'Flower bloom — body-tracked interactive generative visuals in p5.js',
   },
 ]
 
