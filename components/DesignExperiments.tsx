@@ -85,7 +85,7 @@ function CardMedia({ card, style }: { card: typeof cards[0]; style?: React.CSSPr
   )
 }
 
-const HOVER_DELAY = 700
+const HOVER_DELAY = 1200
 
 export default function DesignExperiments() {
   const [hovered, setHovered] = useState<number | null>(null)
