@@ -252,8 +252,10 @@ export default function Works() {
                   <ProjectCard project={p} index={i} />
                 </Link>
               ) : (
-                <div key={p.id} style={{ gridColumn: p.comingSoon ? '1 / -1' : undefined }}>
-                  <ProjectCard project={p} index={i} />
+                <div key={p.id} style={{ gridColumn: p.comingSoon && !isMobile ? '1 / -1' : undefined, display: p.comingSoon && !isMobile ? 'flex' : undefined, justifyContent: p.comingSoon && !isMobile ? 'center' : undefined }}>
+                  <div style={{ width: p.comingSoon && !isMobile ? 'calc(50% - 16px)' : '100%' }}>
+                    <ProjectCard project={p} index={i} />
+                  </div>
                 </div>
               )
             )}
