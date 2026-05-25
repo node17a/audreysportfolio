@@ -1,19 +1,19 @@
 'use client'
 import { motion } from 'framer-motion'
 import { sfPro, mono } from '@/lib/fonts'
-import { useIsMobile } from '@/lib/useIsMobile'
 import AutoPlayVideo from '@/components/AutoPlayVideo'
 
 const F = (id: string) => `https://framerusercontent.com/images/${id}`
 
-const HEIGHT = 400
+const CARD_W = 340
+const GAP = 20
 
 const cards: {
   type: 'image' | 'video'
   src: string
-  fit?: 'cover' | 'contain'
   bg?: string
   caption: string
+  objectPosition?: string
 }[] = [
   {
     type: 'video',
@@ -22,27 +22,53 @@ const cards: {
     caption: '4D self-portrait — Blender render',
   },
   {
+    type: 'video',
+    src: '/applayout.mov',
+    bg: '#0a0a12',
+    caption: 'Link — mobile UI walkthrough for a student networking app',
+    objectPosition: 'center top',
+  },
+  {
+    type: 'video',
+    src: '/cardanim.mp4',
+    bg: '#0d0d0d',
+    caption: 'Link — 3D digital e-card animation',
+  },
+  {
     type: 'image',
     src: F('K4gwJNWnGHo2ZqY3m1oMm03AXI.jpg'),
-    fit: 'cover',
     caption: 'ACS Jakarta Batik — Final uniform pattern, selected from 800+ submissions',
   },
   {
     type: 'video',
     src: '/FLOWERBLOOM.mov',
     bg: '#0d0d0d',
-    caption: 'Flower based visuals with movement - coded on p5.js',
+    caption: 'Flower-based generative visuals — coded in p5.js',
   },
 ]
 
-export default function DesignExperiments() {
-  const isMobile = useIsMobile()
+const N = cards.length
+const TRANSLATE = N * (CARD_W + GAP)
 
+export default function DesignExperiments() {
   return (
     <section style={{ background: '#F5F5F3', paddingBottom: 120 }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: isMobile ? '0 20px' : '0 48px' }}>
 
-        {/* Header */}
+      <style>{`
+        @keyframes marquee-scroll {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(-${TRANSLATE}px); }
+        }
+        .marquee-track {
+          animation: marquee-scroll 28s linear infinite;
+        }
+        .marquee-track:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
+
+      {/* Header */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px' }}>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -58,28 +84,39 @@ export default function DesignExperiments() {
             <span style={{ fontWeight: 600 }}>for the love of making.</span>
           </h2>
         </motion.div>
+      </div>
 
-        {/* Grid */}
-        <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: 20 }}>
-          {cards.map((card, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-20px' }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
-              style={{ flex: 1 }}
-            >
-              {/* Media */}
+      {/* Marquee */}
+      <div style={{ overflow: 'hidden', paddingLeft: 48 }}>
+        <div
+          className="marquee-track"
+          style={{
+            display: 'flex',
+            gap: GAP,
+            width: `${2 * N * (CARD_W + GAP)}px`,
+          }}
+        >
+          {[...cards, ...cards].map((card, i) => (
+            <div key={i} style={{ width: CARD_W, flexShrink: 0 }}>
               <div style={{
                 width: '100%',
-                height: isMobile ? 260 : HEIGHT,
+                height: 380,
                 borderRadius: 16,
                 overflow: 'hidden',
                 background: card.bg ?? '#E8E4DE',
               }}>
                 {card.type === 'video' ? (
-                  <AutoPlayVideo src={card.src} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', background: card.bg }} />
+                  <AutoPlayVideo
+                    src={card.src}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: card.objectPosition ?? 'center',
+                      display: 'block',
+                      background: card.bg,
+                    }}
+                  />
                 ) : (
                   <img
                     src={card.src}
@@ -87,17 +124,16 @@ export default function DesignExperiments() {
                     style={{
                       width: '100%',
                       height: '100%',
-                      objectFit: card.fit ?? 'cover',
+                      objectFit: 'cover',
+                      objectPosition: card.objectPosition ?? 'center',
                       display: 'block',
                     }}
                   />
                 )}
               </div>
-
-              {/* Caption */}
               <p style={{
                 fontFamily: sfPro,
-                fontSize: '0.85rem',
+                fontSize: '0.82rem',
                 color: '#555',
                 letterSpacing: '-0.01em',
                 margin: '12px 2px 0',
@@ -106,11 +142,11 @@ export default function DesignExperiments() {
               }}>
                 {card.caption}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
-
       </div>
+
     </section>
   )
 }
