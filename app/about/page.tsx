@@ -132,7 +132,7 @@ const experiences: {
     date: 'May 2026 – Present',
     location: 'London, UK',
     bullets: [
-      'Selected by Canva UK to represent the brand as a GenC Ambassador — part of a cohort of 50 in the UK — hosting live workshops at Canva\'s London HQ for student designers and creators.',
+      'Selected by Canva UK to represent the brand as a GenC Ambassador — part of a cohort of 34 in the UK — hosting live workshops at Canva\'s London HQ for student designers and creators.',
       'Collaborate with a global network of GenC Ambassadors to champion design education and AI-powered creative workflows across university communities.',
     ],
   },
