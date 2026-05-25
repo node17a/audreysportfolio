@@ -34,12 +34,7 @@ const driftCard = {
   comingSoon: true,
 }
 
-// Insert drift.ai between Plastic Panic (index 2) and CR Purifier (index 3)
-const displayProjects = [
-  ...baseProjects.slice(0, 3),
-  driftCard,
-  ...baseProjects.slice(3),
-]
+const displayProjects = [...baseProjects, driftCard]
 
 type DisplayProject = typeof displayProjects[number]
 
