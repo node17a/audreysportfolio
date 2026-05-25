@@ -109,7 +109,7 @@ export default function Hero() {
             {/* Logo stickers */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
               <a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-                <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Currently Student Ambassador @</span>
+                <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Student Ambassador @</span>
                 <BrandChip src="/Canva_logo.svg.png" alt="Canva" width={72} bg="#f0f0f0" />
               </a>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
