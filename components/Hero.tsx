@@ -118,6 +118,9 @@ export default function Hero() {
                 <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Sales @</span>
                 <BrandChip src="/maje2.png" alt="Maje" width={64} bg="#f5f5f5" />
               </div>
+              <p style={{ fontFamily: sfPro, fontSize: '0.78rem', color: '#999', fontWeight: 300, margin: '4px 0 0', lineHeight: 1.5 }}>
+                Open to marketing, branding, and commercial internships &amp; creative opportunities.
+              </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                 <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Prev.</span>
                 <LogoImg src="/lfw.png" alt="London Fashion Week" height={40} width={130} />
