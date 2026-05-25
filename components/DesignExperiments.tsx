@@ -15,6 +15,7 @@ const cards: {
   caption: string
   objectPosition?: string
   objectFit?: 'cover' | 'contain'
+  portrait?: boolean
 }[] = [
   {
     type: 'video',
@@ -22,7 +23,8 @@ const cards: {
     bg: '#1a1520',
     caption: '4D self-portrait — Blender render',
     objectFit: 'cover',
-    objectPosition: 'center 20%',
+    objectPosition: 'center 30%',
+    portrait: true,
   },
   {
     type: 'video',
@@ -85,7 +87,7 @@ function CardMedia({ card, style }: { card: typeof cards[0]; style?: React.CSSPr
   )
 }
 
-const HOVER_DELAY = 1200
+const HOVER_DELAY = 800
 
 export default function DesignExperiments() {
   const [hovered, setHovered] = useState<number | null>(null)
@@ -212,16 +214,21 @@ export default function DesignExperiments() {
               exit={{ scale: 0.94, opacity: 0 }}
               transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
               style={{
-                width: '52vw',
-                maxWidth: 680,
                 borderRadius: 20,
                 overflow: 'hidden',
                 boxShadow: '0 40px 100px rgba(0,0,0,0.5)',
                 background: cards[hovered].bg ?? '#E8E4DE',
-                aspectRatio: '4/3',
+                ...(cards[hovered].portrait
+                  ? { height: '68vh', width: 'auto', aspectRatio: '1080/1850' }
+                  : { width: '52vw', maxWidth: 680, aspectRatio: '4/3' }),
               }}
             >
-              <CardMedia card={cards[hovered]} />
+              <CardMedia
+                card={cards[hovered]}
+                style={cards[hovered].portrait
+                  ? { width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%' }
+                  : undefined}
+              />
             </motion.div>
             <p style={{
               fontFamily: sfPro,
