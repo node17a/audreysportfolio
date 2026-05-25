@@ -14,12 +14,14 @@ const cards: {
   bg?: string
   caption: string
   objectPosition?: string
+  objectFit?: 'cover' | 'contain'
 }[] = [
   {
     type: 'video',
     src: '/sleeping-render.mp4',
     bg: '#1a1520',
     caption: '4D self-portrait — Blender render',
+    objectFit: 'contain',
   },
   {
     type: 'video',
@@ -69,7 +71,7 @@ function CardMedia({ card, style }: { card: typeof cards[0]; style?: React.CSSPr
         muted
         loop
         playsInline
-        style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: card.objectPosition ?? 'center', display: 'block', ...style }}
+        style={{ width: '100%', height: '100%', objectFit: card.objectFit ?? 'cover', objectPosition: card.objectPosition ?? 'center', display: 'block', ...style }}
       />
     )
   }
@@ -77,7 +79,7 @@ function CardMedia({ card, style }: { card: typeof cards[0]; style?: React.CSSPr
     <img
       src={card.src}
       alt=""
-      style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: card.objectPosition ?? 'center', display: 'block', ...style }}
+      style={{ width: '100%', height: '100%', objectFit: card.objectFit ?? 'cover', objectPosition: card.objectPosition ?? 'center', display: 'block', ...style }}
     />
   )
 }
