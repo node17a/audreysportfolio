@@ -25,7 +25,7 @@ const driftCard = {
   id: 'drift-ai',
   slug: '',
   title: 'drift.ai',
-  description: 'A marketing agentic AI built to scrape web data more efficiently from niche websites.',
+  description: 'An agentic AI built to autonomously surface marketing insights from hard-to-crawl web sources.',
   tags: ['AI', 'MARKETING TECH'],
   image: '/driftai.jpg' as string | null,
   aspectRatio: '4/3' as const,
@@ -246,13 +246,15 @@ export default function Works() {
                 <Link
                   key={p.id}
                   href={`/works/${p.slug}`}
-                  style={{ textDecoration: 'none', display: 'block' }}
+                  style={{ textDecoration: 'none', display: 'block', gridColumn: p.comingSoon ? '1 / -1' : undefined }}
                   data-cursor="explore"
                 >
                   <ProjectCard project={p} index={i} />
                 </Link>
               ) : (
-                <ProjectCard key={p.id} project={p} index={i} />
+                <div key={p.id} style={{ gridColumn: p.comingSoon ? '1 / -1' : undefined }}>
+                  <ProjectCard project={p} index={i} />
+                </div>
               )
             )}
           </div>
