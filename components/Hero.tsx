@@ -104,8 +104,6 @@ export default function Hero() {
               margin: '0 0 16px',
             }}>
               Art and Technology @ <BrandChip src="/UCL.png" alt="UCL" width={52} bg="#f0f0f0" />
-              <br />
-              Open to marketing, branding, and commercial internships &amp; creative opportunities.
             </p>
 
             {/* Logo stickers */}
