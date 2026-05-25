@@ -84,8 +84,20 @@ function CardMedia({ card, style }: { card: typeof cards[0]; style?: React.CSSPr
   )
 }
 
+const HOVER_DELAY = 700
+
 export default function DesignExperiments() {
   const [hovered, setHovered] = useState<number | null>(null)
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  function handleEnter(cardIndex: number) {
+    timerRef.current = setTimeout(() => setHovered(cardIndex), HOVER_DELAY)
+  }
+
+  function handleLeave() {
+    if (timerRef.current) clearTimeout(timerRef.current)
+    setHovered(null)
+  }
 
   return (
     <section style={{ background: '#F5F5F3', paddingBottom: 120, position: 'relative' }}>
@@ -135,8 +147,8 @@ export default function DesignExperiments() {
               <div
                 key={i}
                 style={{ width: CARD_W, flexShrink: 0 }}
-                onMouseEnter={() => setHovered(cardIndex)}
-                onMouseLeave={() => setHovered(null)}
+                onMouseEnter={() => handleEnter(cardIndex)}
+                onMouseLeave={handleLeave}
               >
                 <div style={{
                   width: '100%',
