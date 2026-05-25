@@ -21,7 +21,8 @@ const cards: {
     src: '/sleeping-render.mp4',
     bg: '#1a1520',
     caption: '4D self-portrait — Blender render',
-    objectFit: 'contain',
+    objectFit: 'cover',
+    objectPosition: 'center 20%',
   },
   {
     type: 'video',
