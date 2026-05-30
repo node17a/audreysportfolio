@@ -8,14 +8,19 @@ export default function AutoPlayVideo({ src, style }: { src: string; style?: Rea
     const v = ref.current
     if (!v) return
     v.muted = true
-    v.setAttribute('muted', '')
-    const play = () => v.play().catch(() => {})
-    play()
-    v.addEventListener('canplay', play, { once: true })
-    return () => v.removeEventListener('canplay', play)
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) v.play().catch(() => {})
+        else v.pause()
+      },
+      { threshold: 0.1 }
+    )
+    observer.observe(v)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <video ref={ref} src={src} autoPlay loop muted playsInline preload="auto" style={style} />
+    <video ref={ref} src={src} loop muted playsInline preload="none" style={style} />
   )
 }

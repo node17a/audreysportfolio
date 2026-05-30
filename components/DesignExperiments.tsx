@@ -62,7 +62,15 @@ function CardMedia({ card, style }: { card: typeof cards[0]; style?: React.CSSPr
     const v = videoRef.current
     if (!v) return
     v.muted = true
-    v.play().catch(() => {})
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) v.play().catch(() => {})
+        else v.pause()
+      },
+      { threshold: 0.1 }
+    )
+    observer.observe(v)
+    return () => observer.disconnect()
   }, [])
 
   if (card.type === 'video') {
@@ -70,10 +78,10 @@ function CardMedia({ card, style }: { card: typeof cards[0]; style?: React.CSSPr
       <video
         ref={videoRef}
         src={card.src}
-        autoPlay
         muted
         loop
         playsInline
+        preload="none"
         style={{ width: '100%', height: '100%', objectFit: card.objectFit ?? 'cover', objectPosition: card.objectPosition ?? 'center', display: 'block', ...style }}
       />
     )

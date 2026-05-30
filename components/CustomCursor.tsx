@@ -1,41 +1,32 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion'
 import { mono } from '@/lib/fonts'
 
 const DOT_COLOR  = '#1C1C1A'
 const PILL_COLOR = '#1C1C1A'
 
 export default function CustomCursor() {
+  const cursorRef   = useRef<HTMLDivElement>(null)
   const [exploring, setExploring] = useState(false)
-  const [visible, setVisible]     = useState(false)
+  const [visible,   setVisible]   = useState(false)
 
-  const rawX = useMotionValue(-200)
-  const rawY = useMotionValue(-200)
-
-  const x = useSpring(rawX, { stiffness: 300, damping: 30, mass: 0.4 })
-  const y = useSpring(rawY, { stiffness: 300, damping: 30, mass: 0.4 })
-
-  // Pill: ~70×24, Dot: 10×10 — borderRadius:100 gives circle/pill automatically
-  const w = useSpring(10, { stiffness: 280, damping: 26 })
-  const h = useSpring(10, { stiffness: 280, damping: 26 })
-
-  const visibleRef   = useRef(false)
   const exploringRef = useRef(false)
+  const visibleRef   = useRef(false)
 
   useEffect(() => {
+    const el = cursorRef.current
+    if (!el) return
+
     let rafId: number | null = null
-    let pendingX = -200
-    let pendingY = -200
+    let px = -200, py = -200
 
     const onMove = (e: MouseEvent) => {
-      pendingX = e.clientX
-      pendingY = e.clientY
+      px = e.clientX
+      py = e.clientY
       if (rafId !== null) return
       rafId = requestAnimationFrame(() => {
         rafId = null
-        rawX.set(pendingX)
-        rawY.set(pendingY)
+        el.style.transform = `translate(${px}px, ${py}px) translate(-50%, -50%)`
         if (!visibleRef.current) {
           visibleRef.current = true
           setVisible(true)
@@ -43,21 +34,18 @@ export default function CustomCursor() {
       })
     }
 
-    let overRafId: number | null = null
-    let pendingOverTarget: Element | null = null
+    let overRaf: number | null = null
+    let pendingTarget: Element | null = null
 
     const onOver = (e: MouseEvent) => {
-      pendingOverTarget = e.target as Element
-      if (overRafId !== null) return
-      overRafId = requestAnimationFrame(() => {
-        overRafId = null
-        const el = pendingOverTarget?.closest('[data-cursor="explore"]')
-        const isExplore = !!el
+      pendingTarget = e.target as Element
+      if (overRaf !== null) return
+      overRaf = requestAnimationFrame(() => {
+        overRaf = null
+        const isExplore = !!pendingTarget?.closest('[data-cursor="explore"]')
         if (isExplore === exploringRef.current) return
         exploringRef.current = isExplore
         setExploring(isExplore)
-        w.set(isExplore ? 72 : 10)
-        h.set(isExplore ? 26 : 10)
       })
     }
 
@@ -70,30 +58,27 @@ export default function CustomCursor() {
     document.addEventListener('mouseenter', onEnter)
 
     return () => {
-      if (rafId    !== null) cancelAnimationFrame(rafId)
-      if (overRafId !== null) cancelAnimationFrame(overRafId)
+      if (rafId)  cancelAnimationFrame(rafId)
+      if (overRaf) cancelAnimationFrame(overRaf)
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseover', onOver)
       document.removeEventListener('mouseleave', onLeave)
       document.removeEventListener('mouseenter', onEnter)
     }
-  }, [rawX, rawY, w, h])
+  }, [])
 
   return (
-    <motion.div
+    <div
+      ref={cursorRef}
       style={{
         position: 'fixed',
         top: 0,
         left: 0,
-        x,
-        y,
-        translateX: '-50%',
-        translateY: '-50%',
         pointerEvents: 'none',
         zIndex: 9999999,
-        willChange: 'transform, width, height',
-        width: w,
-        height: h,
+        willChange: 'transform',
+        width: exploring ? 72 : 10,
+        height: exploring ? 26 : 10,
         borderRadius: 100,
         background: exploring ? PILL_COLOR : DOT_COLOR,
         opacity: visible ? 1 : 0,
@@ -101,31 +86,22 @@ export default function CustomCursor() {
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        transition: 'opacity 0.15s ease',
+        transition: 'opacity 0.15s ease, width 0.18s cubic-bezier(0.22,1,0.36,1), height 0.18s cubic-bezier(0.22,1,0.36,1)',
       }}
     >
-      <AnimatePresence>
-        {exploring && (
-          <motion.span
-            key="label"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.12 }}
-            style={{
-              fontFamily: mono,
-              fontSize: '0.55rem',
-              letterSpacing: '0.09em',
-              textTransform: 'uppercase',
-              color: '#fff',
-              whiteSpace: 'nowrap',
-              userSelect: 'none',
-            }}
-          >
-            Explore
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </motion.div>
+      {exploring && (
+        <span style={{
+          fontFamily: mono,
+          fontSize: '0.55rem',
+          letterSpacing: '0.09em',
+          textTransform: 'uppercase',
+          color: '#fff',
+          whiteSpace: 'nowrap',
+          userSelect: 'none',
+        }}>
+          Explore
+        </span>
+      )}
+    </div>
   )
 }
