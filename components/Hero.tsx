@@ -72,8 +72,8 @@ export default function Hero() {
               margin: '0 0 24px',
             }}
           >
-            Audrey Leo <span style={{ fontWeight: 300 }}>crafts</span> bold,{' '}
-            <span style={{ fontWeight: 300, color: '#555' }}>story-driven </span>
+            Audrey Leo <span style={{ fontWeight: 300 }}>builds</span> bold,{' '}
+            <span style={{ fontWeight: 300, color: '#555' }}>human-centered </span>
             <span style={{
               fontStyle: 'italic',
               fontWeight: 300,
@@ -81,11 +81,11 @@ export default function Hero() {
               textDecorationStyle: 'wavy',
               textDecorationColor: '#D4C5E8',
               textUnderlineOffset: '4px',
-            }}>experiences</span>
+            }}>products</span>
             {' '}
             <span style={{ fontWeight: 300, color: '#555' }}>through </span>
-            creative design,{' '}
-            <span style={{ fontWeight: 300, color: '#666' }}>brand strategy &amp; visual storytelling.</span>
+            design, research{' '}
+            <span style={{ fontWeight: 300, color: '#666' }}>&amp; creative strategy.</span>
           </motion.h1>
 
           {/* Subtitle + credentials */}
@@ -108,14 +108,14 @@ export default function Hero() {
 
             {/* Logo stickers */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Product R&amp;D @</span>
+                <BrandChip src="/tldraw%20logo.png" alt="tldraw" width={170} height={42} bg="#f5f5f5" />
+              </div>
               <a href="https://www.canva.com" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
                 <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Student Ambassador @</span>
                 <BrandChip src="/Canva_logo.svg.png" alt="Canva" width={72} bg="#f0f0f0" />
               </a>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontFamily: sfPro, fontSize: '0.72rem', color: '#777', fontWeight: 400 }}>Sales @</span>
-                <BrandChip src="/maje2.png" alt="Maje" width={64} bg="#f5f5f5" />
-              </div>
               <p style={{ fontFamily: sfPro, fontSize: '0.78rem', color: '#999', fontWeight: 300, margin: '4px 0 0', lineHeight: 1.5 }}>
                 Open to marketing, branding, and commercial internships &amp; creative opportunities.
               </p>
